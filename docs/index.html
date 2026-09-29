@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <meta name="description" content="Complete RankForge documentation.">
     <link rel="icon" href="../assets/img/icon.png">
     <title>Getting Started · RankForge Docs</title>
     <link rel="stylesheet" href="../css/style.css">
@@ -21,6 +21,7 @@
                 <a href="../index.html">Home</a>
                 <a href="index.html" class="active">Docs</a>
                 <a href="../editor/index.html">Editor</a>
+                <a href="../bstats.html">Bstats</a>
                 <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </nav>
             <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
@@ -29,97 +30,166 @@
 
     <div class="docs-shell">
         <aside class="docs-sidebar" aria-label="Documentation pages">
-            <h2>README pages</h2>
-            <ul><li><a href="index.html" class="active">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+            <h2>Documentation</h2>
+            <ul>
+                <li><a href="index.html" class="active">Getting Started</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="commands.html">Commands &amp; permissions</a></li>
+                <li><a href="requirements.html">Requirements &amp; rewards</a></li>
+                <li><a href="gui.html">GUI &amp; presentation</a></li>
+                <li><a href="integrations.html">Integrations &amp; systems</a></li>
+                <li><a href="api.html">APIs &amp; history</a></li>
+                <li><a href="guides.html">Guides &amp; reference</a></li>
+            </ul>
         </aside>
         <main class="docs-main">
             <section class="docs-hero">
-                <span class="badge">Complete README conversion</span>
+                <span class="badge">Official Guide</span>
                 <h1>Getting Started</h1>
-                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <p>Explore the complete guide below for setting up and managing your RankForge server.</p>
                 <label class="docs-search" for="docsSearch">
                     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
                 </label>
             </section>
-            <div class="docs-prose"><div align="center">
-<h1 id="rankforge">⚒️ RankForge</h1>
-<p><strong>A modular, production-ready Minecraft rank management plugin.</strong></p>
-<p><a href="https://www.minecraft.net/" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Minecraft-1.20+-brightgreen?style=for-the-badge&amp;logo=minecraft" alt="Minecraft"></a> <a href="https://adoptium.net/" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Java-21%2B-orange?style=for-the-badge&amp;logo=openjdk" alt="Java"></a> <a href="https://github.com/JoshuaOP/RankForge/releases" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Version-3.7-purple?style=for-the-badge" alt="Version"></a> <a href="../LICENSE"><img class="docs-badge" src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License"></a> <a href="https://github.com/JoshuaOP/RankForge/issues" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/github/issues/JoshuaOP/RankForge?style=for-the-badge" alt="Issues"></a></p>
-<br/>
-<p><em>Build the rank system your server deserves — with flexible requirements, powerful rewards, animated GUIs, cosmetics, multi-language support, a REST API, and a full developer API.</em></p>
-<p><a href="index.html#installation">🚀 Installation</a> · <a href="commands.html#commands">⌨️ Commands</a> · <a href="requirements.html#rank-requirements">📋 Requirements</a> · <a href="requirements.html#rank-rewards">🎁 Rewards</a> · <a href="api.html#developer-api">🧩 API</a> · <a href="guides.html#support">💬 Support</a></p>
-</div>
-<hr>
-<section class="docs-section"><h2 id="table-of-contents">📖 Table of Contents</h2>
-<ul><li><a href="index.html#introduction">✨ Introduction</a></li><li><a href="index.html#features-at-a-glance">🎯 Features at a Glance</a></li><li><a href="index.html#requirements-1">⚙️ Requirements</a></li><li><a href="index.html#dependencies">📦 Dependencies</a></li><li><a href="index.html#installation">🚀 Installation</a></li><li><a href="index.html#folder-structure">🗂️ Folder Structure</a></li><li><a href="index.html#first-startup">🔧 First Startup</a></li><li><a href="configuration.html#configuration-files">📄 Configuration Files</a></li><li><a href="configuration.html#configyml">config.yml</a></li><li><a href="configuration.html#ranksyml">ranks.yml</a></li><li><a href="configuration.html#language-files">Language Files</a></li><li><a href="commands.html#commands">⌨️ Commands</a></li><li><a href="commands.html#permissions">🔑 Permissions</a></li><li><a href="commands.html#managing-ranks">🏅 Managing Ranks</a></li><li><a href="requirements.html#rank-requirements">📋 Rank Requirements</a></li><li><a href="requirements.html#rank-rewards">🎁 Rank Rewards</a></li><li><a href="gui.html#gui-system">🖥️ GUI System</a></li><li><a href="gui.html#gui-configuration-guiyml">🖥️ GUI Configuration (gui.yml)</a></li><li><a href="gui.html#cosmetics-1">💄 Cosmetics</a></li><li><a href="gui.html#placeholderapi-support">📊 PlaceholderAPI Support</a></li><li><a href="integrations.html#vault-economy-integration">💳 Vault Economy Integration</a></li><li><a href="integrations.html#luckperms-integration">🔒 LuckPerms Integration</a></li><li><a href="integrations.html#crossplay-support-geyser-floodgate">🌍 Crossplay Support (Geyser / Floodgate)</a></li><li><a href="integrations.html#multi-language-support">🌐 Multi-Language Support</a></li><li><a href="integrations.html#data-storage-1">🗄️ Data Storage</a></li><li><a href="integrations.html#performance-system">⚡ Performance System</a></li><li><a href="integrations.html#anti-abuse-security">🛡️ Anti-Abuse &amp; Security</a></li><li><a href="api.html#rest-api-1">🌐 REST API</a></li><li><a href="api.html#experience-rank-history">📈 Experience &amp; Rank History</a></li><li><a href="api.html#developer-api">🧩 Developer API</a></li><li><a href="guides.html#full-configuration-examples">📝 Full Configuration Examples</a></li><li><a href="guides.html#best-practices">💡 Best Practices</a></li><li><a href="guides.html#frequently-asked-questions-1">❓ Frequently Asked Questions</a></li><li><a href="guides.html#troubleshooting-1">🔍 Troubleshooting</a></li><li><a href="guides.html#contributing">🤝 Contributing</a></li><li><a href="guides.html#support">💬 Support</a></li><li><a href="guides.html#license">📄 License</a></li><li><a href="guides.html#credits">🙏 Credits</a></li><li><a href="guides.html#frequently-asked-questions-1">❓ Frequently Asked Questions (Extended)</a></li><li><a href="guides.html#troubleshooting-1">🔧 Troubleshooting (Extended)</a></li></ul>
-<hr></section>
-<section class="docs-section"><h2 id="introduction">✨ Introduction</h2>
-<p><strong>RankForge</strong> is a comprehensive, enterprise-grade rank plugin for <strong>Paper</strong> and <strong>Spigot</strong> servers. It replaces brittle, script-based rankup setups with a clean YAML-driven system that is beginner-friendly yet exposes a full Java API for developers.</p>
-<p>RankForge handles the entire lifecycle of rank progression:</p>
-<ul><li>Checking a player's requirements (money, XP, playtime, mob kills, block breaks, items, quests, worlds, custom logic)</li><li>Executing rewards when a player ranks up (commands, permissions, cosmetic effects)</li><li>Displaying progress through animated GUIs, PlaceholderAPI placeholders, and boss bars</li><li>Persisting data safely to YAML or MySQL with automatic cache management</li><li>Protecting against exploits with a built-in anti-abuse system</li><li>Serving rank data over an optional embedded REST API</li></ul>
-<hr></section>
-<section class="docs-section"><h2 id="features-at-a-glance">🎯 Features at a Glance</h2>
-<details class="docs-details">
-<summary><strong>Click to expand</strong></summary>
-<h3 id="core">Core</h3>
-<ul><li>🏅 Unlimited ranks defined in a single <code>ranks.yml</code></li><li>🔗 Linked-list rank chain: each rank points to the next via <code>next-rank</code></li><li>🛡️ Slot-based GUI positioning — each rank occupies a configurable inventory slot</li><li>💾 Hot-reload without server restart (<code>/rank reload</code>)</li><li>🔧 In-game rank creation, editing, and deletion via chat prompts and GUI</li></ul>
-<h3 id="requirements">Requirements</h3>
-<ul><li>💰 <strong>Money</strong> — Vault economy balance</li><li>⭐ <strong>XP Level</strong> — Vanilla Minecraft experience level</li><li>⏱️ <strong>Playtime</strong> — Tracked via real wall-clock time (independent of server TPS), configurable with a human-readable duration format (<code>1d 12hr 30m</code>) or plain minutes</li><li>⚔️ <strong>Mob Kills</strong> — Tracked via vanilla <code>MOB_KILLS</code> statistic</li><li>🪨 <strong>Block Breaks</strong> — Exact per-player counter via a dedicated event listener</li><li>📊 <strong>Bukkit Statistics</strong> — Any untyped <code>Statistic</code> enum value</li><li>🔐 <strong>Permission</strong> — A single required permission node</li><li>🧩 <strong>Quests</strong> — Quest IDs checked as <code>rankforge.quest.completed.&lt;id&gt;</code> permissions</li><li>🗺️ <strong>World Lock</strong> — Player must be in a specific world</li><li>🎒 <strong>Items</strong> — Specific materials and quantities in inventory</li><li>🔧 <strong>Custom</strong> — Register your own logic via <code>CustomRequirementRegistry</code> API</li></ul>
-<h3 id="rewards">Rewards</h3>
-<ul><li>💻 <strong>Commands</strong> — Execute any console command on rankup</li><li>🔐 <strong>Permissions</strong> — Auto-apply LuckPerms groups or Bukkit permission attachments</li><li>📣 <strong>Server Broadcast</strong> — Configurable chat broadcast to all players</li><li>🎬 <strong>Title &amp; Subtitle</strong> — Full-screen rank-up title with configurable timing</li><li>🔊 <strong>Action Bar</strong> — Persistent action bar notification on rankup</li><li>🌟 <strong>Boss Bar</strong> — Rank-up and progress boss bars with auto-dismiss</li><li>✨ <strong>Particle Trail</strong> — Timed particle effect around the player on rankup</li><li>🪧 <strong>Tablist Prefix</strong> — Player's tab-list name updated with their rank prefix</li></ul>
-<h3 id="administration">Administration</h3>
-<ul><li>🖥️ <strong>Animated Rank Tree GUI</strong> — Players browse all ranks visually</li><li>✏️ <strong>Admin Editor GUI</strong> — Create and edit ranks in-game</li><li>🔀 <strong>Drag-and-Drop Slot Editor</strong> — Reorder ranks in the GUI without editing YAML</li><li>👥 <strong>Player List GUI</strong> — Browse and edit any player's rank data in-game</li><li>🎯 <strong>Requirement Bypass</strong> — Waive a single requirement for a specific player with <code>/rank bypassreq</code>, without force-setting their rank</li><li>🌍 <strong>Multi-Language</strong> — Built-in: English, Spanish, Filipino, Indonesian; fully extensible</li><li>🌐 <strong>REST API</strong> — Optional embedded HTTP server for external dashboard integrations</li><li>📈 <strong>Rank History</strong> — Full per-player audit log of every rank change</li><li>🎮 <strong>XP Management</strong> — Custom experience tracking with admin set/add commands</li><li>📦 <strong>MySQL + HikariCP</strong> — Connection-pooled MySQL backend; YAML fallback</li><li>🔄 <strong>Auto-Repair</strong> — Orphaned rank IDs repaired automatically on reload/join</li><li>⚡ <strong>TPS-Aware Performance</strong> — Automatically degrades heavy effects under server load</li><li>🛡️ <strong>Anti-Abuse</strong> — Macro detection, command rate limiting, admin rollback tracking</li><li>🎮 <strong>Crossplay</strong> — Native Geyser/Floodgate Bedrock prefix stripping</li></ul>
-</details>
-<hr></section>
-<section class="docs-section"><h2 id="requirements-1">⚙️ Requirements</h2>
-<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Requirement</th><th>Minimum</th><th>Recommended</th></tr></thead><tbody><tr><td><strong>Server Software</strong></td><td>Spigot 1.17</td><td>Paper 1.21+</td></tr><tr><td><strong>Java Version</strong></td><td>Java 21</td><td>Java 21</td></tr><tr><td><strong>Minecraft Version</strong></td><td>1.17.x</td><td>1.21.4</td></tr></tbody></table></div>
-<div class="docs-callout important"><p>RankForge is compiled targeting <strong>Java 21</strong> and <strong>Spigot API 1.21.4</strong>. It will not load on servers running Java 17 or older. Paper is strongly recommended over Spigot for best compatibility with async features and GUI handling.</p></div>
-<div class="docs-callout warning"><p>Do <strong>not</strong> use the <code>/reload</code> command (vanilla server reload). Always use <code>/rank reload</code> instead. Using <code>/reload</code> can corrupt player data and cause RankForge to behave unpredictably.</p></div>
-<hr></section>
-<section class="docs-section"><h2 id="dependencies">📦 Dependencies</h2>
-<h3 id="required">Required</h3>
-<p>None. RankForge works out of the box with zero required dependencies.</p>
-<h3 id="optional-soft-dependencies">Optional (Soft Dependencies)</h3>
-<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Plugin</th><th>Version</th><th>What it enables</th></tr></thead><tbody><tr><td><strong>Vault</strong></td><td>1.7.1+</td><td>Money requirements, money balance tracking</td></tr><tr><td><strong>LuckPerms</strong></td><td>5.4+</td><td>Automatic permission group management on rankup</td></tr><tr><td><strong>PlaceholderAPI</strong></td><td>2.11.6+</td><td><code>%rankforge_*%</code> placeholders in other plugins</td></tr><tr><td><strong>Floodgate / Geyser</strong></td><td>Any</td><td>Bedrock crossplay player name handling</td></tr></tbody></table></div>
-<div class="docs-callout tip"><p>Install only the soft dependencies that match features you plan to use. A server with no economy plugin can still use XP, playtime, mob kills, and block-break requirements without Vault.</p></div>
-<hr></section>
-<section class="docs-section"><h2 id="installation">🚀 Installation</h2>
-<ol><li><strong>Download</strong> <code>RankForge-3.7.jar</code> from the <a href="https://www.spigotmc.org/resources/%E2%9C%A6-rankforge-%E2%9A%A1.134929/" target="_blank" rel="noreferrer">Spigot page</a>.</li></ol>
-<ol><li><strong>Drop the JAR</strong> into your <code>plugins/</code> directory:</li></ol>
-<pre class="docs-code"><code>   server/
-   └── plugins/
-       └── RankForge-3.7.jar</code></pre>
-<ol><li><strong>(Optional)</strong> Install Vault, LuckPerms, and/or PlaceholderAPI for extra features.</li></ol>
-<ol><li><strong>Start your server.</strong> RankForge auto-generates all config files.</li></ol>
-<ol><li><strong>Edit</strong> <code>plugins/RankForge/ranks.yml</code> to define your ranks.</li></ol>
-<ol><li><strong>Reload</strong> the plugin after changes:</li></ol>
-<pre class="docs-code"><code>   /rank reload</code></pre>
-<hr></section>
-<section class="docs-section"><h2 id="folder-structure">🗂️ Folder Structure</h2>
-<pre class="docs-code"><code>plugins/
-└── RankForge/
-    ├── config.yml          # Main settings (storage, cosmetics, performance, REST API…)
-    ├── gui.yml             # All GUI layout, appearance, and interaction settings
-    ├── ranks.yml           # All rank definitions (requirements, rewards, GUI layout)
-    └── lang/               # Language files
-        ├── en.yml          # English (default)
-        ├── es.yml          # Spanish
-        ├── fil.yml         # Filipino
-        └── id.yml          # Indonesian</code></pre>
-<div class="docs-callout note"><p>Player data is stored in a MySQL database (if configured) or in-memory with a YAML fallback file. There is no separate <code>playerdata.yml</code> to manage manually — the plugin handles all persistence automatically.</p></div>
-<hr></section>
-<section class="docs-section"><h2 id="first-startup">🔧 First Startup</h2>
-<p>On first launch, RankForge:</p>
-<ol><li>Saves default <code>config.yml</code>, <code>ranks.yml</code>, and all four bundled language files</li><li>Detects installed soft dependencies and prints a summary:</li></ol>
-<pre class="docs-code"><code>   [RankForge] [SoftDep] Vault=✓  LuckPerms=✓  PlaceholderAPI=✓  Floodgate=✗
-   [RankForge] [Lang] Dynamically indexed 4 language profiles: [en, es, fil, id]
-   [RankForge] RankForge v3.7 successfully loaded! (5 ranks compiled)</code></pre>
-<ol><li>Connects to MySQL (if configured) or initializes the YAML storage fallback</li><li>Starts the TPS monitor and performance evaluator</li><li>Starts the REST API server (if enabled in <code>config.yml</code>)</li><li>Registers all PlaceholderAPI placeholders (if PAPI is present)</li></ol>
-<hr></section></div>
+            
+            <div class="docs-prose">
+                <div class="docs-card" style="text-align: center; margin-bottom: 2rem;">
+                    <h1 id="rankforge" style="margin-top: 0;">⚒️ RankForge</h1>
+                    <p><strong>A modular, production-ready Minecraft rank management plugin.</strong></p>
+                    <p style="margin: 1rem 0;">
+                        <a href="https://www.minecraft.net/" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Minecraft-1.20+-brightgreen?style=for-the-badge&amp;logo=minecraft" alt="Minecraft"></a> 
+                        <a href="https://adoptium.net/" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Java-21%2B-orange?style=for-the-badge&amp;logo=openjdk" alt="Java"></a> 
+                        <a href="https://github.com/JoshuaOP/RankForge/releases" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/badge/Version-3.7-purple?style=for-the-badge" alt="Version"></a> 
+                        <a href="../LICENSE"><img class="docs-badge" src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License"></a> 
+                        <a href="https://github.com/JoshuaOP/RankForge/issues" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/github/issues/JoshuaOP/RankForge?style=for-the-badge" alt="Issues"></a>
+                    </p>
+                    <p><em>Build the rank system your server deserves — with flexible requirements, powerful rewards, animated GUIs, cosmetics, multi-language support, a REST API, and a full developer API.</em></p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">
+                        <a href="index.html#installation">🚀 Installation</a> · 
+                        <a href="commands.html#commands">⌨️ Commands</a> · 
+                        <a href="requirements.html#rank-requirements">📋 Requirements</a> · 
+                        <a href="requirements.html#rank-rewards">🎁 Rewards</a> · 
+                        <a href="api.html#developer-api">🧩 API</a> · 
+                        <a href="guides.html#support">💬 Support</a>
+                    </p>
+                </div>
+
+                <hr>
+
+                <section class="docs-section">
+                    <h2 id="table-of-contents">📖 Table of Contents</h2>
+                    <div class="docs-grid">
+                        <div class="docs-card">
+                            <h3>Core Navigation</h3>
+                            <ul>
+                                <li><a href="index.html#introduction">✨ Introduction</a></li>
+                                <li><a href="index.html#features-at-a-glance">🎯 Features at a Glance</a></li>
+                                <li><a href="index.html#requirements-1">⚙️ Requirements</a></li>
+                                <li><a href="index.html#dependencies">📦 Dependencies</a></li>
+                                <li><a href="index.html#installation">🚀 Installation</a></li>
+                                <li><a href="index.html#folder-structure">🗂️ Folder Structure</a></li>
+                                <li><a href="index.html#first-startup">🔧 First Startup</a></li>
+                            </ul>
+                        </div>
+                        <div class="docs-card">
+                            <h3>Configs &amp; Features</h3>
+                            <ul>
+                                <li><a href="configuration.html#configuration-files">📄 Configuration Files</a></li>
+                                <li><a href="commands.html#commands">⌨️ Commands &amp; Permissions</a></li>
+                                <li><a href="requirements.html#rank-requirements">📋 Requirements &amp; Rewards</a></li>
+                                <li><a href="gui.html#gui-system">🖥️ GUI &amp; Presentation</a></li>
+                                <li><a href="integrations.html#vault-economy-integration">💳 Integrations &amp; Systems</a></li>
+                                <li><a href="api.html#rest-api-1">🌐 APIs &amp; History</a></li>
+                                <li><a href="guides.html#frequently-asked-questions-1">❓ FAQ &amp; Troubleshooting</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="introduction">✨ Introduction</h2>
+                    <p><strong>RankForge</strong> is a comprehensive, enterprise-grade rank plugin for <strong>Paper</strong> and <strong>Spigot</strong> servers. It replaces brittle, script-based rankup setups with a clean YAML-driven system that is beginner-friendly yet exposes a full Java API for developers.</p>
+                    <p>RankForge handles the entire lifecycle of rank progression:</p>
+                    <ul>
+                        <li>Checking a player's requirements (money, XP, playtime, mob kills, block breaks, items, quests, worlds, custom logic)</li>
+                        <li>Executing rewards when a player ranks up (commands, permissions, cosmetic effects)</li>
+                        <li>Displaying progress through animated GUIs, PlaceholderAPI placeholders, and boss bars</li>
+                        <li>Persisting data safely to YAML or MySQL with automatic cache management</li>
+                        <li>Protecting against exploits with a built-in anti-abuse system</li>
+                        <li>Serving rank data over an optional embedded REST API</li>
+                    </ul>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="features-at-a-glance">🎯 Features at a Glance</h2>
+                    <details class="docs-details">
+                        <summary><strong>Click to expand core feature list</strong></summary>
+                        <h3 id="core">Core</h3>
+                        <ul>
+                            <li>🏅 Unlimited ranks defined in a single <code>ranks.yml</code></li>
+                            <li>🔗 Linked-list rank chain: each rank points to the next via <code>next-rank</code></li>
+                            <li>🛡️️ Slot-based GUI positioning — each rank occupies a configurable inventory slot</li>
+                            <li>💾 Hot-reload without server restart (<code>/rank reload</code>)</li>
+                            <li>🔧 In-game rank creation, editing, and deletion via chat prompts and GUI</li>
+                        </ul>
+                        <h3 id="requirements">Requirements</h3>
+                        <ul>
+                            <li>💰 <strong>Money</strong> — Vault economy balance</li>
+                            <li>⭐ <strong>XP Level</strong> — Vanilla Minecraft experience level</li>
+                            <li>⏱️ <strong>Playtime</strong> — Tracked via real wall-clock time (independent of server TPS)</li>
+                            <li>⚔️ <strong>Mob Kills</strong> — Tracked via vanilla <code>MOB_KILLS</code> statistic</li>
+                            <li>🪨 <strong>Block Breaks</strong> — Exact per-player counter via a dedicated event listener</li>
+                        </ul>
+                    </details>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="requirements-1">⚙️ Requirements</h2>
+                    <div class="docs-table-wrap">
+                        <table class="docs-table">
+                            <thead>
+                                <tr><th>Requirement</th><th>Minimum</th><th>Recommended</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Server Software</strong></td><td>Spigot 1.17</td><td>Paper 1.21+</td></tr>
+                                <tr><td><strong>Java Version</strong></td><td>Java 21</td><td>Java 21</td></tr>
+                                <tr><td><strong>Minecraft Version</strong></td><td>1.17.x</td><td>1.21.4</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="docs-callout">
+                        <p>RankForge is compiled targeting <strong>Java 21</strong> and <strong>Spigot API 1.21.4</strong>. Paper is strongly recommended over Spigot for best compatibility with async features and GUI handling.</p>
+                    </div>
+                    <div class="docs-callout warning">
+                        <p>Do <strong>not</strong> use the <code>/reload</code> command. Always use <code>/rank reload</code> instead to prevent database corruption.</p>
+                    </div>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="installation">🚀 Installation</h2>
+                    <ol>
+                        <li><strong>Download</strong> <code>RankForge-3.7.jar</code> from the <a href="https://www.spigotmc.org/" target="_blank" rel="noreferrer">Spigot page</a>.</li>
+                        <li><strong>Drop the JAR</strong> into your <code>plugins/</code> directory:</li>
+                    </ol>
+                    <pre class="docs-code"><code>server/
+└── plugins/
+    └── RankForge-3.7.jar</code></pre>
+                    <ol start="3">
+                        <li><strong>(Optional)</strong> Install Vault, LuckPerms, and/or PlaceholderAPI for extra features.</li>
+                        <li><strong>Start your server.</strong> RankForge auto-generates all configuration files.</li>
+                    </ol>
+                    <hr>
+                </section>
+            </div>
+
             <footer class="docs-footer">
                 <div class="footer-content">
-                    <span>RankForge documentation · source: README.md</span>
+                    <span>RankForge documentation · official guide</span>
                     <div class="social-links">
                         <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
                     </div>

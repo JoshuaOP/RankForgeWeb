@@ -151,6 +151,7 @@ const rankForm = document.getElementById("rankForm");
 const emptyState = document.getElementById("editorEmpty");
 const status = document.getElementById("editorStatus");
 const defaultRankInput = document.getElementById("defaultRank");
+const importFile = document.getElementById("importFile");
 
 function loadState() {
     try {
@@ -438,6 +439,123 @@ function toYaml() {
     return `${lines.join("\n")}\n`;
 }
 
+// Simple YAML parser for basic RankForge ranks.yml structures
+function parseYaml(yamlText) {
+    const lines = yamlText.split(/\r?\n/);
+    let defaultRank = "Guest";
+    const ranks = {};
+    let currentRankId = null;
+    let currentSection = null; // null, 'lore', 'permissions', 'commands', 'requirements', 'quests', 'worlds', 'items'
+
+    for (let line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#")) continue;
+
+        const indent = line.search(/\S/);
+
+        if (indent === 0) {
+            if (trimmed.startsWith("default-rank:")) {
+                const parts = trimmed.split(":");
+                if (parts.length > 1) {
+                    defaultRank = parts.slice(1).join(":").trim().replace(/^["']|["']$/g, "");
+                }
+            }
+            currentSection = null;
+        } else if (indent === 2 && trimmed.endsWith(":")) {
+            const key = trimmed.slice(0, -1).trim();
+            if (key === "ranks") continue;
+            currentRankId = key;
+            ranks[currentRankId] = {
+                "display-name": "",
+                "next-rank": "",
+                slot: 0,
+                material: "STONE",
+                "chat-prefix": "",
+                lore: [],
+                permissions: [],
+                commands: [],
+                requirements: {
+                    money: 0,
+                    "xp-level": 0,
+                    permission: "",
+                    playtime: "",
+                    "mob-kills": 0,
+                    "block-breaks": 0,
+                    quests: [],
+                    worlds: [],
+                    items: {}
+                }
+            };
+            currentSection = null;
+        } else if (currentRankId && indent === 4) {
+            if (trimmed.endsWith(":")) {
+                const sectionKey = trimmed.slice(0, -1).trim();
+                if (["lore", "permissions", "commands"].includes(sectionKey)) {
+                    currentSection = sectionKey;
+                } else if (sectionKey === "requirements") {
+                    currentSection = "requirements_parent";
+                }
+                continue;
+            }
+
+            const colonIndex = trimmed.indexOf(":");
+            if (colonIndex !== -1) {
+                const key = trimmed.slice(0, colonIndex).trim();
+                let val = trimmed.slice(colonIndex + 1).trim().replace(/^["']|["']$/g, "");
+                if (!isNaN(val) && val !== "") val = Number(val);
+
+                if (key === "display-name") ranks[currentRankId]["display-name"] = val;
+                else if (key === "next-rank") ranks[currentRankId]["next-rank"] = val;
+                else if (key === "slot") ranks[currentRankId].slot = Number(val) || 0;
+                else if (key === "material") ranks[currentRankId].material = val;
+                else if (key === "chat-prefix") ranks[currentRankId]["chat-prefix"] = val;
+                currentSection = null;
+            } else if (trimmed.startsWith("-") && currentSection && ["lore", "permissions", "commands"].includes(currentSection)) {
+                let val = trimmed.slice(1).trim().replace(/^["']|["']$/g, "");
+                ranks[currentRankId][currentSection].push(val);
+            }
+        } else if (currentRankId && indent >= 6) {
+            if (currentSection === "requirements_parent" || indent === 6) {
+                if (trimmed.endsWith(":")) {
+                    const reqSubKey = trimmed.slice(0, -1).trim();
+                    if (["quests", "worlds", "items"].includes(reqSubKey)) {
+                        currentSection = reqSubKey;
+                    }
+                    continue;
+                }
+
+                const colonIndex = trimmed.indexOf(":");
+                if (colonIndex !== -1) {
+                    const key = trimmed.slice(0, colonIndex).trim();
+                    let val = trimmed.slice(colonIndex + 1).trim().replace(/^["']|["']$/g, "");
+                    if (!isNaN(val) && val !== "" && key !== "playtime" && key !== "permission" && key !== "statistic-id") {
+                        val = Number(val);
+                    }
+                    ranks[currentRankId].requirements[key] = val;
+                }
+            }
+
+            if (trimmed.startsWith("-") && ["quests", "worlds"].includes(currentSection)) {
+                let val = trimmed.slice(1).trim().replace(/^["']|["']$/g, "");
+                ranks[currentRankId].requirements[currentSection].push(val);
+            } else if (currentSection === "items" && !trimmed.startsWith("-")) {
+                const colonIndex = trimmed.indexOf(":");
+                if (colonIndex !== -1) {
+                    const itemKey = trimmed.slice(0, colonIndex).trim();
+                    const itemVal = Number(trimmed.slice(colonIndex + 1).trim()) || 1;
+                    ranks[currentRankId].requirements.items[itemKey] = itemVal;
+                }
+            }
+        }
+    }
+
+    if (Object.keys(ranks).length === 0) {
+        throw new Error("No valid ranks found in YAML file.");
+    }
+
+    return { defaultRank, ranks };
+}
+
 function saveDraft() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     setStatus("Draft saved in this browser", true);
@@ -521,11 +639,43 @@ defaultRankInput.addEventListener("input", () => {
     state.defaultRank = defaultRankInput.value;
     setStatus("Unsaved changes");
 });
+
 document.getElementById("addRank").addEventListener("click", addRank);
 document.getElementById("saveDraft").addEventListener("click", saveDraft);
 document.getElementById("exportYaml").addEventListener("click", downloadYaml);
 document.getElementById("copyYaml").addEventListener("click", copyYaml);
 document.getElementById("resetDraft").addEventListener("click", resetDraft);
+
+// Import file handlers
+const importYamlBtn = document.getElementById("importYaml");
+if (importYamlBtn) {
+    importYamlBtn.addEventListener("click", () => importFile.click());
+}
+
+if (importFile) {
+    importFile.addEventListener("change", (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const text = e.target.result;
+                const parsed = parseYaml(text);
+                state = parsed;
+                selectedRank = Object.keys(state.ranks)[0] || "";
+                defaultRankInput.value = state.defaultRank;
+                renderRankList();
+                renderForm();
+                setStatus(`Successfully imported ${file.name}`, true);
+            } catch (err) {
+                setStatus(`Failed to parse YAML file: ${err.message}`);
+            }
+            importFile.value = "";
+        };
+        reader.readAsText(file);
+    });
+}
 
 renderRankList();
 renderForm();

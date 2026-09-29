@@ -49,13 +49,15 @@
                     <p>Shape the same nested rank structure used by RankForge.</p>
                 </div>
                 <div class="editor-toolbar-actions">
+                    <button class="btn btn-secondary" id="importYaml" type="button"><i class="fa-solid fa-upload"></i> Import YAML</button>
+                    <input type="file" id="importFile" accept=".yml,.yaml" style="display: none;">
                     <button class="btn btn-secondary" id="copyYaml" type="button"><i class="fa-regular fa-copy"></i> Copy YAML</button>
                     <button class="btn btn-secondary" id="saveDraft" type="button"><i class="fa-solid fa-floppy-disk"></i> Save draft</button>
                     <button class="btn btn-primary" id="exportYaml" type="button"><i class="fa-solid fa-download"></i> Export YAML</button>
                 </div>
             </div>
             <div class="editor-status" id="editorStatus" role="status" aria-live="polite"></div>
-            <div class="editor-notice"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is a client-side editor. Drafts stay in this browser; use <strong>Export YAML</strong> to download a file for <code>plugins/RankForge/ranks.yml</code>. The source file is never changed automatically.</div>
+            <div class="editor-notice"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is a client-side editor. Drafts stay in this browser; use <strong>Export YAML</strong> to download a file for <code>plugins/RankForge/ranks.yml</code>, or <strong>Import YAML</strong> to load an existing configuration file. The source file is never changed automatically.</div>
             <div class="editor-empty" id="editorEmpty" hidden>No rank selected.</div>
             <form id="rankForm" autocomplete="off"></form>
         </main>

@@ -21,6 +21,21 @@
     border: 1px solid var(--border-color);
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+.editor-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.editor-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.editor-sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
 }
 
 .editor-sidebar h2 {
@@ -58,13 +73,14 @@
     outline: 0;
     font: inherit;
     font-size: 0.95rem;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .editor-input:focus,
 .editor-select:focus,
 .editor-textarea:focus {
     border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.15);
 }
 
 .editor-select option {
@@ -167,12 +183,17 @@
     cursor: pointer;
 }
 
+#importFile {
+    display: none;
+}
+
 /* Status & Notices */
 .editor-status {
     min-height: 1.5rem;
     margin-bottom: 1.2rem;
     color: var(--text-muted);
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .editor-status.saved {

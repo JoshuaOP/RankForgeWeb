@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = [...document.querySelectorAll(".docs-section")];
     const links = [...document.querySelectorAll(".docs-sidebar a")];
 
+    // Search functionality
     if (search) {
         search.addEventListener("input", () => {
             const query = search.value.trim().toLowerCase();
@@ -14,18 +15,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Scroll spy for sidebar active links
     const updateActiveLink = () => {
         const visibleSections = sections.filter((section) => !section.classList.contains("docs-filtered"));
+        
         const current = visibleSections.reduce((active, section) => {
             const sectionTop = section.getBoundingClientRect().top;
             if (sectionTop <= 130 && (!active || sectionTop > active.getBoundingClientRect().top)) {
                 return section;
             }
             return active;
-        }, visibleSections[0]);
+        }, null);
 
         links.forEach((link) => {
-            link.classList.toggle("active", current && link.hash === `#${current.id}`);
+            let matches = false;
+            if (current) {
+                const targetId = link.hash.substring(1);
+                // Check if the section itself or any element inside it matches the sidebar link hash
+                const hasId = current.id === targetId || current.querySelector(`#${CSS.escape(targetId)}`);
+                matches = Boolean(hasId);
+            }
+            link.classList.toggle("active", matches);
         });
     };
 
