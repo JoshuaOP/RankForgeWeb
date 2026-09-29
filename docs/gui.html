@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>GUI &amp; presentation · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html" class="active">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>GUI &amp; presentation</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="gui-system">🖥️ GUI System</h2>
+<p>RankForge includes five distinct GUIs.</p>
+<h3 id="animated-rank-tree-gui-rank">Animated Rank Tree GUI (<code>/rank</code>)</h3>
+<p>The primary player-facing GUI. Opens when a player runs <code>/rank</code> (or clicks with no arguments). Displays all ranks in the chain, with the player's current position highlighted. Icons use the rank's configured <code>material</code>, <code>display-name</code>, and <code>lore</code>. The GUI is animated for visual appeal.</p>
+<h3 id="admin-rank-editor-gui-rank-editor">Admin Rank Editor GUI (<code>/rank editor</code>)</h3>
+<p>Lets admins browse all ranks and click into the detail editor for any rank. Changes made in the GUI are auto-saved to <code>ranks.yml</code> via a debounced async write (saves fire at most once per second even during rapid edits).</p>
+<h3 id="rank-detail-editor-gui-rank-editor-rankid">Rank Detail Editor GUI (<code>/rank editor &lt;rankId&gt;</code>)</h3>
+<p>A per-rank editor that lets you modify:</p>
+<ul><li>Display name</li><li>Next rank link</li><li>Material / icon</li><li>Required money, XP, playtime, mob kills, block breaks</li><li>And more — via in-game chat prompts</li></ul>
+<h3 id="drag-and-drop-slot-editor-rank-editor-drag">Drag-and-Drop Slot Editor (<code>/rank editor drag</code>)</h3>
+<p>A visual editor for rearranging rank icons in the GUI. Drag an icon from one slot to another to update its <code>slot</code> value without touching <code>ranks.yml</code>. Changes persist immediately.</p>
+<h3 id="player-list-gui-rank-playerlist">Player List GUI (<code>/rank playerlist</code>)</h3>
+<p>Lists all players whose data is in the cache, with their rank shown on the icon. Clicking a player opens the <code>PlayerDataEditorGUI</code> where an admin can view and change that player's rank data directly.</p>
+<h3 id="player-data-editor-gui-playerdataeditorgui">Player Data Editor GUI (<code>PlayerDataEditorGUI</code>)</h3>
+<p>A 54-slot editor opened by clicking any player in the Player List GUI. Provides the following buttons:</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Slot</th><th>Button</th><th>Action</th></tr></thead><tbody><tr><td>4</td><td>Player Head</td><td>Summary (UUID, rank, XP, balance, status)</td></tr><tr><td>10</td><td>Rank</td><td>Click to change the player's rank (chat input)</td></tr><tr><td>12</td><td>Experience</td><td>Click to set the player's experience (chat input)</td></tr><tr><td>14</td><td>Balance</td><td>Click to set the player's economy balance (chat input)</td></tr><tr><td>16</td><td><strong>Rank History</strong></td><td>Displays the selected player's last 10 rank changes directly in the administrator's chat</td></tr><tr><td>45</td><td>← Back</td><td>Return to the Player List GUI</td></tr><tr><td>49</td><td>Reset</td><td>Reset the player's data to server defaults</td></tr><tr><td>53</td><td>Close</td><td>Close the GUI</td></tr></tbody></table></div>
+<div class="docs-callout note"><p><strong>Reset</strong> also clears any active <code>/rank bypassreq</code> waivers for that player, alongside their rank, XP, and balance — so a reset always returns a player to a fully clean, server-default state.</p></div>
+<h4 id="rank-history-button-slot-16">Rank History Button (Slot 16)</h4>
+<p>Clicking the <strong>Rank History</strong> button sends the selected player's rank history directly to the administrator's chat — no new GUI or inventory is opened. The output is identical to running <code>/rank history</code> as that player: it uses the same <code>RankHistoryManager</code>, formatter, and display logic. Up to 10 entries are shown, newest first, including the timestamp, change type (Rankup / Set / Reset), and the from/to rank IDs. Works for both online and offline players — a fast way to audit a player's progression without leaving the GUI.</p>
+<h3 id="external-gui-registry-api">External GUI Registry (API)</h3>
+<p>Developers can replace any GUI with their own implementation using <code>ExternalGUIRegistry</code>. See <a href="api.html#developer-api">Developer API</a>.</p>
+<hr></section>
+<section class="docs-section"><h2 id="gui-configuration-guiyml">🖥️ GUI Configuration (<code>gui.yml</code>)</h2>
+<p>All GUI layout, appearance, slot, and interaction settings are controlled by <code>plugins/RankForge/gui.yml</code>. The file is auto-generated on first run and supports full customization without editing Java code.</p>
+<div class="docs-callout info"><p><strong>Note for upgraders:</strong> In previous versions, the <code>gui:</code> (rows) and <code>gui-click-shield:</code> sections lived in <code>config.yml</code>. They have moved to <code>gui.yml</code>. RankForge automatically migrates your existing values on first startup — no manual reconfiguration is required. If either section is missing from <code>gui.yml</code>, the plugin reads any custom value you had in <code>config.yml</code> and writes it to <code>gui.yml</code> transparently.</p></div>
+<h3 id="file-location">File Location</h3>
+<pre class="docs-code"><code>plugins/
+└── RankForge/
+    └── gui.yml</code></pre>
+<h3 id="structure-overview">Structure Overview</h3>
+<pre class="docs-code"><code class="language-yaml"># ── GUI Window Size ────────────────────────────────────────────
+# Number of inventory rows in each GUI (1–6).
+gui:
+  rows: 6
+  admin-rows: 6
+
+# ── GUI Click Shield ───────────────────────────────────────────
+# Per-player cooldown that prevents click-spam inside any RankForge GUI.
+gui-click-shield:
+  enabled: true
+  cooldown-ms: 400   # Minimum ms between two accepted clicks per player
+
+# ── Player-facing rank tree GUI (/rank) ────────────────────────
+player-gui:
+  title: "&amp;8✦ &amp;6RankForge &amp;8✦"       # GUI window title
+  border-material: CYAN_STAINED_GLASS_PANE  # Border block type
+  head-slot: 4                         # Slot for the player's head item
+  info-slot: 49                        # Slot for the info/progress item
+
+# ── Admin rank editor (/rank editor) ──────────────────────────
+admin-gui:
+  title: "&amp;8✦ &amp;cAdmin Rank Editor &amp;8✦"
+  border-material: RED_STAINED_GLASS_PANE
+
+# ── Per-rank detail editor (click a rank in the admin editor) ──
+detail-editor:
+  title-prefix: "&amp;8✦ &amp;6Editing: "
+  border-top: LIME_STAINED_GLASS_PANE
+  border-bottom: GRAY_STAINED_GLASS_PANE
+
+# ── Drag-and-drop slot reassignment editor ─────────────────────
+drag-drop:
+  title: "&amp;8✦ &amp;bSlot Editor &amp;8✦"
+
+# ── Player list GUI (/rank playerlist) ────────────────────────
+player-list:
+  title: "&amp;8✦ &amp;9Player List &amp;8✦"
+  border-material: BLUE_STAINED_GLASS_PANE
+  prev-page-slot: 45
+  close-slot: 49
+  next-page-slot: 53
+
+# ── Player data editor (click a player in the player list) ─────
+player-data-editor:
+  title-prefix: "&amp;8✦ &amp;9Editing: "
+  border-material: LIGHT_BLUE_STAINED_GLASS_PANE
+  block-breaks:
+    slot: 30
+    material: IRON_PICKAXE
+    name: "&amp;7&amp;lBlock Breaks"
+    lore:
+      - "&amp;7Exact blocks broken (tracked by RankForge)."
+
+# ── Block-break stat panel settings ───────────────────────────
+block-break-stats:
+  show-in-rank-gui: true
+  show-in-player-data-editor: true
+  label: "&amp;7Blocks Broken"
+  material: IRON_PICKAXE
+  value-format: "&amp;a%count%"
+  unmet-format: "&amp;cNeed &amp;e%required% &amp;cblocks &amp;8(have &amp;7%current%&amp;8)"
+  met-format: "&amp;a✔ &amp;e%required% &amp;ablocks broken"
+
+# ── Shared elements used across all GUIs ─────────────────────
+common:
+  filler-material: GRAY_STAINED_GLASS_PANE
+  close-material: BARRIER
+  close-name: "&amp;cClose"
+  back-material: ARROW
+  back-name: "&amp;7Back"
+
+# ── Requirement status icons on the next-rank GUI item ────────
+requirement-icons:
+  enabled: true
+  met-symbol: "&amp;a✔"
+  unmet-symbol: "&amp;c✘"
+  show-details: true
+
+# ── GUI themes (border colors) ────────────────────────────────
+themes:
+  default:
+    player-border: CYAN_STAINED_GLASS_PANE
+    admin-border: RED_STAINED_GLASS_PANE
+    list-border: BLUE_STAINED_GLASS_PANE
+  dark:
+    player-border: BLACK_STAINED_GLASS_PANE
+    admin-border: RED_STAINED_GLASS_PANE
+    list-border: BLUE_STAINED_GLASS_PANE
+  gold:
+    player-border: YELLOW_STAINED_GLASS_PANE
+    admin-border: ORANGE_STAINED_GLASS_PANE
+    list-border: YELLOW_STAINED_GLASS_PANE</code></pre>
+<h3 id="key-sections">Key Sections</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Section</th><th>Purpose</th></tr></thead><tbody><tr><td><code>gui</code></td><td>Window row count for the player GUI and admin editor</td></tr><tr><td><code>gui-click-shield</code></td><td>Per-player click cooldown to prevent inventory spam</td></tr><tr><td><code>player-gui</code></td><td>Player-facing rank tree: title, border, slot positions</td></tr><tr><td><code>admin-gui</code></td><td>Admin rank editor: title and border color</td></tr><tr><td><code>detail-editor</code></td><td>Per-rank detail editor: title prefix and border colors</td></tr><tr><td><code>drag-drop</code></td><td>Drag-and-drop slot editor title</td></tr><tr><td><code>player-list</code></td><td>Player list GUI: title, border, pagination slot positions</td></tr><tr><td><code>player-data-editor</code></td><td>Player data editor: title, border, and block-break display</td></tr><tr><td><code>block-break-stats</code></td><td>How block-break counts appear across all GUIs</td></tr><tr><td><code>common</code></td><td>Shared filler, close, and back button materials and labels</td></tr><tr><td><code>requirement-icons</code></td><td>Met/unmet symbols on the next-rank item</td></tr><tr><td><code>themes</code></td><td>Named border-color presets (active theme configurable per GUI)</td></tr></tbody></table></div>
+<h3 id="customization-tips">Customization Tips</h3>
+<ul><li><strong>Titles</strong> support <code>&amp;</code> color codes and most Bukkit formatting codes.</li><li><strong>Materials</strong> must be valid Bukkit <code>Material</code> enum names (all uppercase, underscores).</li><li><strong>Slots</strong> are 0-indexed inventory slots (0–53 for a 6-row chest).</li><li>Apply changes with <code>/rank reload</code> — no server restart needed.</li></ul>
+<h3 id="gui-reference">GUI Reference</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>GUI</th><th>Command</th><th>Description</th></tr></thead><tbody><tr><td>Rank Tree</td><td><code>/rank</code></td><td>Player-facing animated rank progression view</td></tr><tr><td>Admin Editor</td><td><code>/rank editor</code></td><td>Create, edit, and delete ranks in-game</td></tr><tr><td>Slot Editor</td><td><code>/rank editor drag</code></td><td>Drag-and-drop rank reordering</td></tr><tr><td>Player List</td><td><code>/rank playerlist</code></td><td>Browse and edit all player data</td></tr><tr><td>Player Data Editor</td><td><em>(click player in list)</em></td><td>Edit individual player rank/XP/money</td></tr></tbody></table></div>
+<hr></section>
+<section class="docs-section"><h2 id="cosmetics-1">💄 Cosmetics</h2>
+<p>Cosmetics are managed by <code>CosmeticManager</code>, which coordinates four sub-systems.</p>
+<h3 id="boss-bar-1">Boss Bar</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Config Key</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>cosmetic.bossbar.enabled</code></td><td><code>true</code></td><td>Enable/disable boss bars entirely</td></tr><tr><td><code>cosmetic.bossbar.duration-ticks</code></td><td><code>100</code></td><td>Ticks before the bar auto-dismisses</td></tr></tbody></table></div>
+<ul><li>Shows a <strong>yellow SOLID</strong> bar on rankup with the new rank name</li><li>Shows a <strong>green SEGMENTED_10</strong> bar for progress checks (via API)</li><li>Concurrent bars per player are handled correctly — a new bar cancels the old dismiss timer</li></ul>
+<h3 id="particle-trail-1">Particle Trail</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Config Key</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>cosmetic.particles.enabled</code></td><td><code>true</code></td><td>Enable/disable particle effects</td></tr></tbody></table></div>
+<p>A timed particle trail is spawned around the player immediately on rankup. It expires automatically — no permanent persistent trails. The trail is suppressed in LOW performance mode.</p>
+<h3 id="tablist-prefix">Tablist Prefix</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Config Key</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>cosmetic.tablist.enabled</code></td><td><code>true</code></td><td>Enable/disable tablist formatting</td></tr><tr><td><code>cosmetic.tablist.format</code></td><td><code>{prefix}{player}</code></td><td>Format string. Tokens: <code>{prefix}</code>, <code>{player}</code></td></tr></tbody></table></div>
+<p>The player's tab-list name is updated on:</p>
+<ul><li>Login</li><li>Rankup</li><li>Plugin reload (applied to all online players)</li></ul>
+<h3 id="join-quit">Join / Quit</h3>
+<p><code>JoinQuitManager</code> handles restoring cosmetics when players reconnect and cleaning them up on disconnect (removes boss bars, stops particle tasks, resets tablist).</p>
+<hr></section>
+<section class="docs-section"><h2 id="placeholderapi-support">📊 PlaceholderAPI Support</h2>
+<p>With PlaceholderAPI installed, RankForge registers all <code>%rankforge_*%</code> placeholders automatically. Use them in any PAPI-compatible plugin (scoreboards, chat, tab lists, holograms, etc.).</p>
+<h3 id="available-placeholders">Available Placeholders</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Placeholder</th><th>Example Output</th><th>Description</th></tr></thead><tbody><tr><td><code>%rankforge_rank%</code></td><td><code>Veteran</code></td><td>Current rank ID</td></tr><tr><td><code>%rankforge_rank_name%</code></td><td><code>&amp;2[Veteran]</code></td><td>Current rank display name</td></tr><tr><td><code>%rankforge_rank_display%</code></td><td><code>&amp;2[Veteran]</code></td><td>Alias for <code>rank_name</code></td></tr><tr><td><code>%rankforge_rank_prefix%</code></td><td><code>&amp;2[Veteran]</code></td><td>Current rank's <code>chat-prefix</code></td></tr><tr><td><code>%rankforge_rank_position%</code></td><td><code>3</code></td><td>Position of current rank in the chain (1-based)</td></tr><tr><td><code>%rankforge_is_max_rank%</code></td><td><code>false</code></td><td><code>true</code> if player is at the final rank</td></tr><tr><td><code>%rankforge_next_rank%</code></td><td><code>Elite</code></td><td>Next rank ID, or <code>MAX</code></td></tr><tr><td><code>%rankforge_next_cost%</code></td><td><code>$100,000</code></td><td>Next rank's money requirement formatted</td></tr><tr><td><code>%rankforge_cost%</code></td><td><code>$10,000</code></td><td>Current rank's money requirement formatted</td></tr><tr><td><code>%rankforge_progress%</code></td><td><code>62.5</code></td><td>Overall requirement progress as a decimal</td></tr><tr><td><code>%rankforge_progress_percent%</code></td><td><code>62.5%</code></td><td>Same with <code>%</code> appended</td></tr><tr><td><code>%rankforge_progress_bar%</code></td><td><code>██████░░░░</code></td><td>Visual ASCII progress bar</td></tr><tr><td><code>%rankforge_required_progress%</code></td><td><code>$100,000 Lv75</code></td><td>All requirements for the next rank</td></tr><tr><td><code>%rankforge_remaining_progress%</code></td><td><code>$37,500 Lv12</code></td><td>What remains to meet requirements</td></tr><tr><td><code>%rankforge_money%</code></td><td><code>$62,500</code></td><td>Player's current Vault balance</td></tr><tr><td><code>%rankforge_has_money%</code></td><td><code>false</code></td><td><code>true</code> if player can afford the next rank</td></tr><tr><td><code>%rankforge_missing_money%</code></td><td><code>$37,500</code></td><td>Money still needed for next rank</td></tr><tr><td><code>%rankforge_requirements_status%</code></td><td><code>§c✘ Requirements Unmet</code></td><td>Met/unmet status label</td></tr><tr><td><code>%rankforge_requirements_detail%</code></td><td><em>(multiline)</em></td><td>Full requirement breakdown</td></tr><tr><td><code>%rankforge_xp_level%</code></td><td><code>30</code></td><td>Player's current Minecraft XP level</td></tr><tr><td><code>%rankforge_xp_progress%</code></td><td><code>7.3%</code></td><td>Fraction to next XP level</td></tr><tr><td><code>%rankforge_player%</code></td><td><code>Steve</code></td><td>Player's name</td></tr><tr><td><code>%rankforge_uuid%</code></td><td><code>xxxxxxxx-...</code></td><td>Player's UUID</td></tr><tr><td><code>%rankforge_lang%</code></td><td><code>en</code></td><td>Player's active language code</td></tr><tr><td><code>%rankforge_version%</code></td><td><code>3.7</code></td><td>Plugin version</td></tr></tbody></table></div>
+<h3 id="scoreboard-example-cmi">Scoreboard Example (CMI)</h3>
+<pre class="docs-code"><code class="language-yaml">scoreboard:
+  title: "&amp;6&amp;lMy Server"
+  lines:
+    - "&amp;7Rank: %rankforge_rank_display%"
+    - "&amp;7Progress: %rankforge_progress_bar%"
+    - "&amp;7Next: %rankforge_next_rank%"
+    - "&amp;7Cost: %rankforge_next_cost%"</code></pre>
+<hr></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>

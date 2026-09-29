@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>Requirements &amp; rewards · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html" class="active">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>Requirements &amp; rewards</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="rank-requirements">📋 Rank Requirements</h2>
+<p>Requirements are defined directly on each rank in <code>ranks.yml</code>. A player must satisfy <strong>all</strong> requirements simultaneously to rank up. If a specific player has a special circumstance, admins can waive a single requirement for them with <code>/rank bypassreq &lt;player&gt; &lt;requirement&gt;</code> (see <a href="commands.html#managing-ranks">Managing Ranks</a>) rather than editing <code>ranks.yml</code> or force-setting their rank.</p>
+<h3 id="money">💰 Money</h3>
+<p>Requires a Vault economy balance. The balance is checked at rankup time; <strong>money is not automatically deducted</strong> — use a <code>commands</code> entry to call your economy plugin's withdrawal command if needed.</p>
+<pre class="docs-code"><code class="language-yaml">required-money: 10000</code></pre>
+<div class="docs-callout tip"><p>To deduct money on rankup, add a command reward: <code>"eco take %player% 10000"</code> (EssentialsX) or <code>"vault take %player% 10000"</code>.</p></div>
+<hr>
+<h3 id="xp-level">⭐ XP Level</h3>
+<p>Requires the player to hold at least this many vanilla Minecraft XP levels.</p>
+<pre class="docs-code"><code class="language-yaml">required-xp-level: 30</code></pre>
+<p>XP levels are checked but <strong>not consumed</strong> by RankForge. To consume levels, add a command like <code>"xp set %player% 0l"</code>.</p>
+<hr>
+<h3 id="permission">🔐 Permission</h3>
+<p>Requires the player to hold a specific Bukkit permission node.</p>
+<pre class="docs-code"><code class="language-yaml">required-permission: "server.vip"</code></pre>
+<p>Only one permission can be specified per rank using this built-in field. For multiple permission checks, use <code>required-quests</code> (each quest maps to one permission) or the Custom Requirements API.</p>
+<hr>
+<h3 id="playtime">⏱️ Playtime</h3>
+<p>RankForge's <code>PlaytimeTracker</code> records the exact time a player joins and calculates their playtime using real-world elapsed time through <code>System.currentTimeMillis()</code>. It does not depend on Minecraft ticks, TPS, or in-game time.</p>
+<p>The calculated playtime is converted into the human-readable format used by the Playtime Requirement system in <code>ranks.yml</code>.</p>
+<h3 id="playtime-format">Playtime Format</h3>
+<p>RankForge supports the following time units:</p>
+<ul><li><code>s</code> = Seconds</li><li><code>m</code> = Minutes</li><li><code>hr</code> = Hours</li><li><code>d</code> = Days</li></ul>
+<hr>
+<h3 id="mob-kills">⚔️ Mob Kills</h3>
+<p>Requires a minimum total mob kill count, read from the vanilla <code>MOB_KILLS</code> statistic.</p>
+<pre class="docs-code"><code class="language-yaml">required-mob-kills: 500</code></pre>
+<hr>
+<h3 id="block-breaks">🪨 Block Breaks</h3>
+<p>Requires a minimum number of block breaks. This is tracked by RankForge's own <code>BlockBreakTracker</code> — an exact atomic counter incremented on every <code>BlockBreakEvent</code>. It is <strong>not</strong> based on the approximated <code>MINE_BLOCK</code> vanilla statistic.</p>
+<pre class="docs-code"><code class="language-yaml">required-block-breaks: 10000</code></pre>
+<div class="docs-callout tip"><p>Block break counts are flushed to storage at the interval set by <code>tracker.block-break-flush-ticks</code> in <code>config.yml</code>. Data is always safe on server shutdown (a final flush is performed).</p></div>
+<hr>
+<h3 id="bukkit-statistic">📊 Bukkit Statistic</h3>
+<p>Requires any untyped <code>Bukkit.Statistic</code> enum value to meet a minimum.</p>
+<pre class="docs-code"><code class="language-yaml">required-statistic-id: "FISH_CAUGHT"
+required-statistic-value: 100</code></pre>
+<p>A full list of valid statistic names is available in the <a href="https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Statistic.html" target="_blank" rel="noreferrer">Bukkit Statistic Javadoc</a>. Only <strong>untyped</strong> statistics (those that don't require a material or entity type parameter) are supported by this built-in field. For typed statistics, use the Custom Requirements API.</p>
+<hr>
+<h3 id="quests">🧩 Quests</h3>
+<p>Requires completion of one or more quest IDs. Each quest ID is translated to a permission node: <code>rankforge.quest.completed.&lt;questId&gt;</code>. If the player has that permission, the quest is considered complete.</p>
+<pre class="docs-code"><code class="language-yaml">required-quests:
+  - "tutorial_complete"
+  - "first_dungeon"</code></pre>
+<p>Grant the permission when a player finishes a quest in your quest plugin:</p>
+<pre class="docs-code"><code class="language-bash">/lp user Steve permission set rankforge.quest.completed.tutorial_complete true</code></pre>
+<hr>
+<h3 id="world-lock">🗺️ World Lock</h3>
+<p>Requires the player to currently be in one of the listed worlds when they attempt to rank up.</p>
+<pre class="docs-code"><code class="language-yaml">required-worlds:
+  - "world"
+  - "world_nether"</code></pre>
+<p>Leave the list empty (or omit the field) to allow ranking up from any world.</p>
+<hr>
+<h3 id="items">🎒 Items</h3>
+<p>Requires specific items and quantities to be present in the player's inventory. Items are <strong>not consumed</strong> by RankForge — add a command reward to consume them if desired.</p>
+<pre class="docs-code"><code class="language-yaml">required-items:
+  DIAMOND: 10
+  IRON_INGOT: 64
+  NETHERITE_INGOT: 1</code></pre>
+<p>The key is a <code>Bukkit.Material</code> name (uppercase). Only material and amount are checked — item names, lore, and NBT are ignored.</p>
+<hr>
+<h3 id="custom-requirements-api">🔧 Custom Requirements (API)</h3>
+<p>Third-party plugins can register custom requirement types using the <code>CustomRequirementRegistry</code>. See <a href="api.html#developer-api">Developer API</a> for implementation details.</p>
+<pre class="docs-code"><code class="language-yaml"># In ranks.yml — after registering via the API
+# (Custom requirements are evaluated programmatically;
+#  see CustomRequirementRegistry.addRankRequirement())</code></pre>
+<hr></section>
+<section class="docs-section"><h2 id="rank-rewards">🎁 Rank Rewards</h2>
+<p>Rewards are applied the moment a player successfully ranks up. Multiple reward types are applied simultaneously.</p>
+<h3 id="command-rewards">💻 Command Rewards</h3>
+<p>A list of console commands executed at rankup. Use <code>%player%</code> as the placeholder for the player's name.</p>
+<pre class="docs-code"><code class="language-yaml">commands:
+  - "lp user %player% group set veteran"
+  - "give %player% GOLDEN_APPLE 5"
+  - "eco give %player% 500"
+  - "broadcast %player% just ranked up!"</code></pre>
+<div class="docs-callout tip"><p>Commands are run synchronously on the main thread. For commands from plugins that support async dispatch, this is always safe.</p></div>
+<hr>
+<h3 id="permission-rewards">🔐 Permission Rewards</h3>
+<p>Permissions listed in the <code>permissions</code> field are applied to the player when they hold that rank, and removed when they move to the next rank. With LuckPerms installed, they are applied as transient (session) nodes via the LuckPerms API. Without LuckPerms, they are granted via a Bukkit <code>PermissionAttachment</code>.</p>
+<pre class="docs-code"><code class="language-yaml">permissions:
+  - "essentials.sethome.multiple.3"
+  - "server.veteran"</code></pre>
+<div class="docs-callout important"><p>These permissions represent what the player has <strong>while at this rank</strong>, not one-time grants. For permanent grants (e.g., LuckPerms group membership), use a <code>commands</code> entry instead: <code>"lp user %player% group add veteran"</code>.</p></div>
+<hr>
+<h3 id="announcement-rewards">📣 Announcement Rewards</h3>
+<p>Configured globally in <code>config.yml</code> under <code>announcements.rankup</code>:</p>
+<ul><li><strong>Chat broadcast</strong> — sent to all online players</li><li><strong>Full-screen title</strong> — shown to the ranking-up player</li><li><strong>Action bar</strong> — shown to the ranking-up player</li></ul>
+<p>All three are configurable and can be individually disabled.</p>
+<hr>
+<h3 id="boss-bar">🌟 Boss Bar</h3>
+<p>A boss bar is automatically shown to the player on rankup (configurable in <code>cosmetic.bossbar</code>). A progress variant is also available via the API.</p>
+<hr>
+<h3 id="particle-trail">✨ Particle Trail</h3>
+<p>A timed particle trail spawns around the player immediately after a rankup. It auto-expires after a short duration. The particle type and behavior are controlled by <code>cosmetic.particles</code> in <code>config.yml</code>.</p>
+<p>Under server load (LOW performance mode), particles are suppressed automatically by the TPS monitor.</p>
+<hr>
+<h3 id="tablist-update">🪧 Tablist Update</h3>
+<p>The player's tab-list display name is updated to include their new rank's <code>chat-prefix</code> as soon as they rank up.</p>
+<hr></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>

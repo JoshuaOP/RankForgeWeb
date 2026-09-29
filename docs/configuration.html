@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>Configuration · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html" class="active">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>Configuration</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="configuration-files">📄 Configuration Files</h2>
+<h3 id="configyml"><code>config.yml</code></h3>
+<p>The master configuration file. Every section is explained below.</p>
+<pre class="docs-code"><code class="language-yaml"># ─────────────────────────────────────────────────────────────
+#  RankForge — config.yml
+#  Reload at any time with: /rank reload
+# ─────────────────────────────────────────────────────────────
+
+# ── Language ────────────────────────────────────────────────
+language:
+  # Default language code. Must match a file in plugins/RankForge/lang/.
+  # Bundled: en, es, fil, id
+  default: "en"
+  # Allow players to set their own language with /rank lang set &lt;code&gt;
+  per-player: true
+
+# ── Announcements (rankup notifications) ────────────────────
+announcements:
+  enabled: true
+  rankup:
+    # Server-wide chat broadcast
+    broadcast: true
+    message: "&amp;6[RankForge] &amp;e%player% &amp;aranked up to &amp;6%rank%&amp;a!"
+
+    # Full-screen title shown to the ranking-up player
+    title:
+      enabled: true
+      title: "&amp;6✦ Rank Up! ✦"
+      subtitle: "&amp;eYou are now &amp;a%rank%"
+      fade-in: 10    # ticks (20 ticks = 1 second)
+      stay: 60
+      fade-out: 10
+
+    # Action bar shown to the ranking-up player
+    action-bar:
+      enabled: true
+      message: "&amp;a✦ You ranked up to &amp;e%rank% &amp;a✦"
+
+# ── Cosmetics ────────────────────────────────────────────────
+cosmetic:
+  # Boss bar shown to the player on rankup and progress checks
+  bossbar:
+    enabled: true
+    duration-ticks: 100   # How long the boss bar stays visible (100 ticks = 5 seconds)
+
+  # Tablist prefix: shows the player's rank prefix in the player list
+  tablist:
+    enabled: true
+    # Available tokens: {prefix} {player}
+    format: "{prefix}{player}"
+
+  # Particle trail spawned around the player on rankup (auto-expires)
+  particles:
+    enabled: true
+
+# ── Data Storage ─────────────────────────────────────────────
+# Options: mysql, yaml (yaml = local file fallback)
+storage:
+  type: yaml
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "rankforge"
+    username: "root"
+    password: "password"
+    pool-size: 10
+
+# ── Sync (YAML mode only) ────────────────────────────────────
+sync:
+  # How often online player data is flushed to the YAML file (in ticks)
+  interval-ticks: 200
+
+# ── Block Break Tracker ──────────────────────────────────────
+tracker:
+  # How often the in-memory block-break counts are flushed to storage (ticks)
+  block-break-flush-ticks: 100
+
+# ── Performance ──────────────────────────────────────────────
+performance:
+  modes:
+    # TPS at or above this → HIGH mode (all cosmetics enabled)
+    high-tps-threshold: 18.0
+    # TPS at or above this → MEDIUM mode (reduced cosmetics)
+    medium-tps-threshold: 14.0
+    # TPS below medium threshold → LOW mode (cosmetics disabled)
+
+# ── Crossplay (Geyser / Floodgate) ──────────────────────────
+crossplay:
+  # Bedrock player names are prefixed with this character by Floodgate.
+  # RankForge strips this prefix from display names automatically.
+  bedrock-prefix: "."
+
+# ── REST API ─────────────────────────────────────────────────
+rest-api:
+  enabled: false
+  port: 4567
+  # Bearer token for authentication. Leave empty to disable auth (dev only!).
+  token: ""
+
+# ── Debug ────────────────────────────────────────────────────
+debug: false</code></pre>
+<hr>
+<h3 id="ranksyml"><code>ranks.yml</code></h3>
+<p>Defines every rank. Each rank is a YAML key (the <strong>rank ID</strong>) containing its display properties, GUI position, requirements, and rewards.</p>
+<pre class="docs-code"><code class="language-yaml"># ─────────────────────────────────────────────────────────────
+#  RankForge — ranks.yml
+# ─────────────────────────────────────────────────────────────
+
+# The rank ID assigned to players who have no stored data.
+default-rank: Guest
+
+ranks:
+
+  # ── Rank ID ─────────────────────────────────────────────
+  Guest:
+    # Text shown in GUIs and messages. Supports &amp; color codes.
+    display-name: "&amp;7[Guest]"
+    # The rank ID this rank promotes to. Leave empty for the final rank.
+    next-rank: "Member"
+    # GUI inventory slot (0–53). Use the drag editor to reorder visually.
+    slot: 11
+    # Material for the GUI icon.
+    material: GRAY_WOOL
+    # Lore lines on the GUI icon. Supports &amp; color codes.
+    lore:
+      - "&amp;7Starting rank."
+    # Chat prefix injected into the tablist and cosmetics.
+    chat-prefix: "&amp;7[Guest]"
+    # Permission nodes granted to the player when they hold this rank.
+    permissions:
+      - "essentials.chat.color"
+    # Console commands executed when this rank's requirements are met and player ranks up.
+    commands: []
+    # ── Requirements (all must be met to rank up FROM this rank) ──
+    required-money: 0
+    required-xp-level: 0
+    required-permission: ""
+    required-playtime: 0
+    required-mob-kills: 0
+    required-block-breaks: 0
+    required-statistic-id: ""
+    required-statistic-value: 0
+    required-quests: []
+    required-worlds: []
+    required-items: {}
+
+  Member:
+    display-name: "&amp;a[Member]"
+    next-rank: "Veteran"
+    slot: 13
+    material: GREEN_WOOL
+    lore:
+      - "&amp;7A trusted community member."
+      - ""
+      - "&amp;eRequirements:"
+      - "  &amp;7$1,000"
+      - "  &amp;710 XP levels"
+      - "  &amp;760 minutes playtime"
+    chat-prefix: "&amp;a[Member]"
+    permissions:
+      - "essentials.sethome.multiple.member"
+    commands:
+      - "lp user %player% group set member"
+    required-money: 1000
+    required-xp-level: 10
+    required-playtime: 60
+    required-mob-kills: 0
+    required-block-breaks: 0
+    required-items: {}
+    required-quests: []
+    required-worlds: []
+
+  Veteran:
+    display-name: "&amp;2[Veteran]"
+    next-rank: "Elite"
+    slot: 15
+    material: EMERALD
+    lore:
+      - "&amp;7A seasoned survivor."
+    chat-prefix: "&amp;2[Veteran]"
+    permissions:
+      - "essentials.sethome.multiple.veteran"
+    commands:
+      - "lp user %player% group set veteran"
+      - "give %player% GOLDEN_APPLE 5"
+    required-money: 10000
+    required-xp-level: 30
+    required-playtime: 600
+    required-mob-kills: 100
+    required-block-breaks: 5000
+    required-items:
+      DIAMOND: 10
+    required-quests:
+      - "first_quest"
+    required-worlds: []
+
+  Elite:
+    display-name: "&amp;b[Elite]"
+    next-rank: ""
+    slot: 31
+    material: DIAMOND
+    lore:
+      - "&amp;7The pinnacle of achievement."
+    chat-prefix: "&amp;b[Elite]"
+    permissions:
+      - "essentials.sethome.multiple.elite"
+    commands:
+      - "lp user %player% group set elite"
+    required-money: 100000
+    required-xp-level: 75
+    required-playtime: 3000
+    required-mob-kills: 1000
+    required-block-breaks: 50000
+    required-statistic-id: "FISH_CAUGHT"
+    required-statistic-value: 50
+    required-items:
+      NETHERITE_INGOT: 5
+      DIAMOND: 32
+    required-quests:
+      - "main_quest"
+      - "side_quest_a"
+    required-worlds:
+      - "world"</code></pre>
+<p><strong>Rank Property Reference</strong></p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>display-name</code></td><td>String</td><td>Name shown to players. Supports <code>&amp;</code> color codes.</td></tr><tr><td><code>next-rank</code></td><td>String</td><td>The rank ID this rank promotes to. Empty string = final rank.</td></tr><tr><td><code>slot</code></td><td>Integer</td><td>Inventory slot (0–53) in the rank tree GUI.</td></tr><tr><td><code>material</code></td><td>String</td><td>Bukkit <code>Material</code> name for the GUI icon.</td></tr><tr><td><code>lore</code></td><td>List\&lt;String\&gt;</td><td>Lore lines on the GUI icon.</td></tr><tr><td><code>chat-prefix</code></td><td>String</td><td>Prefix shown in the tablist.</td></tr><tr><td><code>permissions</code></td><td>List\&lt;String\&gt;</td><td>Permissions granted when the player holds this rank.</td></tr><tr><td><code>commands</code></td><td>List\&lt;String\&gt;</td><td>Console commands run on rankup. Use <code>%player%</code> for the player's name.</td></tr><tr><td><code>required-money</code></td><td>Double</td><td>Vault balance required. <code>0</code> = no requirement.</td></tr><tr><td><code>required-xp-level</code></td><td>Integer</td><td>Vanilla XP level required.</td></tr><tr><td><code>required-permission</code></td><td>String</td><td>A single permission node required to rank up.</td></tr><tr><td><code>required-playtime</code></td><td>Long</td><td>Total server playtime required (minutes).</td></tr><tr><td><code>required-mob-kills</code></td><td>Integer</td><td>Total mob kills required (<code>MOB_KILLS</code> statistic).</td></tr><tr><td><code>required-block-breaks</code></td><td>Integer</td><td>Exact block breaks tracked by RankForge's counter.</td></tr><tr><td><code>required-statistic-id</code></td><td>String</td><td>Any untyped <code>Bukkit.Statistic</code> enum name.</td></tr><tr><td><code>required-statistic-value</code></td><td>Integer</td><td>The required value for the above statistic.</td></tr><tr><td><code>required-quests</code></td><td>List\&lt;String\&gt;</td><td>Quest IDs. Each is checked as <code>rankforge.quest.completed.&lt;id&gt;</code>.</td></tr><tr><td><code>required-worlds</code></td><td>List\&lt;String\&gt;</td><td>Player must currently be in one of these world names.</td></tr><tr><td><code>required-items</code></td><td>Map</td><td><code>MATERIAL_NAME: amount</code> pairs. Items must be in inventory.</td></tr></tbody></table></div>
+<hr>
+<h3 id="language-files">Language Files</h3>
+<p>Language files live in <code>plugins/RankForge/lang/</code>. RankForge ships with four built-in files and dynamically loads any <code>.yml</code> file placed in that folder.</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>File</th><th>Language</th></tr></thead><tbody><tr><td><code>en.yml</code></td><td>English (default)</td></tr><tr><td><code>es.yml</code></td><td>Spanish</td></tr><tr><td><code>fil.yml</code></td><td>Filipino</td></tr><tr><td><code>id.yml</code></td><td>Indonesian</td></tr></tbody></table></div>
+<p><strong>Adding a custom language:</strong></p>
+<ol><li>Create <code>plugins/RankForge/lang/de.yml</code> (or any ISO code)</li><li>Copy <code>en.yml</code> as a template and translate the <code>messages</code> section</li><li>Run <code>/rank reload</code> — RankForge discovers the file automatically</li><li>Players can switch with <code>/rank lang set de</code></li></ol>
+<hr></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>Integrations &amp; systems · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html" class="active">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>Integrations &amp; systems</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="vault-economy-integration">💳 Vault Economy Integration</h2>
+<p>RankForge hooks into <strong>Vault</strong> to read economy balances. Any Vault-compatible economy plugin works automatically.</p>
+<p><strong>Common compatible plugins:</strong> EssentialsX Economy, CMI Economy, iConomy, BOSEconomy, TheNewEconomy.</p>
+<p><strong>What RankForge does with Vault:</strong></p>
+<ul><li>Reads the player's balance to evaluate <code>required-money</code></li><li>Saves the live balance snapshot to the cache on player logout for accurate offline reads</li><li>Exposes the balance via <code>%rankforge_money%</code> and related PAPI placeholders</li></ul>
+<p><strong>What RankForge does NOT do:</strong></p>
+<ul><li>Automatically deduct money — add a command reward for withdrawals</li></ul>
+<pre class="docs-code"><code class="language-yaml"># Example: deduct money on rankup via EssentialsX command
+commands:
+  - "eco take %player% 10000"</code></pre>
+<hr></section>
+<section class="docs-section"><h2 id="luckperms-integration">🔒 LuckPerms Integration</h2>
+<p>With LuckPerms installed, RankForge manages <code>permissions</code> entries via the LuckPerms API instead of Bukkit <code>PermissionAttachment</code>, providing more reliable session-based permission handling.</p>
+<p><strong>What happens on login:</strong></p>
+<ul><li>RankForge reads the player's stored rank</li><li>Calls <code>luckPermsHook.applyPermissions(player, rankModel)</code> with the rank's <code>permissions</code> list</li><li>Without LuckPerms, a Bukkit <code>PermissionAttachment</code> is used as fallback</li></ul>
+<p><strong>What happens on rankup:</strong></p>
+<ul><li>Old rank's permissions are removed via <code>removeRankPermissions(player, oldRankId)</code></li><li>New rank's permissions are applied via <code>applyRankPermissions(player, newRankId)</code></li></ul>
+<p><strong>For permanent group membership</strong>, use <code>commands</code>:</p>
+<pre class="docs-code"><code class="language-yaml">commands:
+  - "lp user %player% group set veteran"
+  - "lp user %player% group remove member"</code></pre>
+<hr></section>
+<section class="docs-section"><h2 id="crossplay-support-geyser-floodgate">🌍 Crossplay Support (Geyser / Floodgate)</h2>
+<p>RankForge automatically detects Floodgate and handles Bedrock player names gracefully.</p>
+<p><strong>Configuration:</strong></p>
+<pre class="docs-code"><code class="language-yaml">crossplay:
+  bedrock-prefix: "."    # Floodgate's default prefix for Bedrock usernames</code></pre>
+<p><strong>What this affects:</strong></p>
+<ul><li><code>RankForgeAPI.getCleanName(player)</code> strips the prefix for display purposes</li><li>The <code>%rankforge_player%</code> placeholder returns the clean name</li><li>Rank checks and storage still use the full UUID, so Bedrock players are handled identically to Java players internally</li></ul>
+<hr></section>
+<section class="docs-section"><h2 id="multi-language-support">🌐 Multi-Language Support</h2>
+<p>RankForge ships with four bundled languages and supports unlimited custom ones.</p>
+<h3 id="bundled-languages">Bundled Languages</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Code</th><th>Language</th></tr></thead><tbody><tr><td><code>en</code></td><td>English</td></tr><tr><td><code>es</code></td><td>Spanish</td></tr><tr><td><code>fil</code></td><td>Filipino</td></tr><tr><td><code>id</code></td><td>Indonesian</td></tr></tbody></table></div>
+<h3 id="per-player-language">Per-Player Language</h3>
+<p>Players change their language with:</p>
+<pre class="docs-code"><code>/rank lang list             ← see available codes
+/rank lang set es           ← switch to Spanish
+/rank lang reset            ← revert to server default</code></pre>
+<p>The preference is saved to the player's data record and persists across sessions. The <code>%rankforge_lang%</code> placeholder shows a player's current language code.</p>
+<h3 id="adding-a-language">Adding a Language</h3>
+<ol><li>Copy <code>plugins/RankForge/lang/en.yml</code> to <code>plugins/RankForge/lang/de.yml</code></li><li>Translate the <code>messages</code> section</li><li>Run <code>/rank reload</code></li><li>The new language is available immediately</li></ol>
+<p>The <code>prefix</code> key at the top of each language file sets the message prefix for that language.</p>
+<hr></section>
+<section class="docs-section"><h2 id="data-storage-1">🗄️ Data Storage</h2>
+<h3 id="yaml-default">YAML (Default)</h3>
+<p>When <code>storage.type: yaml</code> is set (or MySQL connection fails), player data is stored in memory and periodically flushed to YAML files. This is suitable for single-server setups.</p>
+<pre class="docs-code"><code class="language-yaml-ranks:">  enabled: true
+  file: "ranks.yml"
+
+sync:
+  interval-ticks: 200    # Flush every 200 ticks (10 seconds)</code></pre>
+<p>On shutdown, a final synchronous flush is always performed. Writes are batched and debounced so that rapid rank, XP, or playtime changes don't trigger a disk write per change.</p>
+<h3 id="mysql">MySQL</h3>
+<p>For networks or servers that need persistent, relational storage:</p>
+<pre class="docs-code"><code class="language-yaml">storage:
+  type: mysql
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "rankforge"
+    username: "rankforge_user"
+    password: "your_secure_password"
+    pool-size: 10</code></pre>
+<p>RankForge uses <strong>HikariCP</strong> for connection pooling. Tables are created automatically on first connection. Reads and writes go through the same debounced batching as YAML storage, keeping MySQL round-trips low even under heavy rankup/XP activity.</p>
+<div class="docs-callout warning"><p>Never commit <code>config.yml</code> to a public repository if it contains your MySQL credentials. Use environment variables or a secrets manager on production servers.</p></div>
+<h3 id="fallback-behavior">Fallback Behavior</h3>
+<p>If the MySQL connection fails at startup, RankForge automatically falls back to YAML storage and logs a warning. This prevents the plugin from failing to load due to database unavailability.</p>
+<h3 id="cache">Cache</h3>
+<p>An in-memory <code>CacheManager</code> holds data for all online players plus recently-offline players. Entries expire and are purged on a schedule (every 6 000 ticks by default). On player logout, data is saved asynchronously and the cache entry is scheduled for cleanup.</p>
+<p><strong>Orphan Repair:</strong> If a player's stored rank ID no longer exists in <code>ranks.yml</code> (e.g., after a rank was deleted), the rank is automatically repaired to the <code>default-rank</code> both on join and after every reload.</p>
+<hr></section>
+<section class="docs-section"><h2 id="performance-system">⚡ Performance System</h2>
+<p>RankForge monitors server TPS and automatically adjusts behavior to protect server performance.</p>
+<h3 id="tps-modes">TPS Modes</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Mode</th><th>TPS Range</th><th>Behavior</th></tr></thead><tbody><tr><td><strong>HIGH</strong></td><td>≥ 18.0</td><td>All cosmetics enabled</td></tr><tr><td><strong>MEDIUM</strong></td><td>≥ 14.0</td><td>Reduced cosmetics</td></tr><tr><td><strong>LOW</strong></td><td>&lt; 14.0</td><td>Cosmetics (particles) suppressed</td></tr></tbody></table></div>
+<p>Thresholds are configurable:</p>
+<pre class="docs-code"><code class="language-yaml">performance:
+  modes:
+    high-tps-threshold: 18.0
+    medium-tps-threshold: 14.0</code></pre>
+<p>Mode transitions are logged to console:</p>
+<pre class="docs-code"><code>[RankForge] [Perf] Mode switched HIGH → MEDIUM (TPS: 16.4)</code></pre>
+<p>The TPS monitor runs as a repeating server task and evaluates every 200 ticks (10 seconds).</p>
+<h3 id="storage-sync-efficiency">Storage &amp; Sync Efficiency</h3>
+<p>The YAML and MySQL storage backends batch writes and use debounced, asynchronous flushes so that frequent rank, XP, and playtime updates don't translate into constant disk or database I/O. Combined with the TPS-aware cosmetic throttling above, this keeps RankForge's overhead low even on busy servers with hundreds of concurrent players — reload, rankup, and GUI operations stay responsive under load.</p>
+<hr></section>
+<section class="docs-section"><h2 id="anti-abuse-security">🛡️ Anti-Abuse &amp; Security</h2>
+<p><code>AntiAbuseManager</code> provides three layers of exploit protection.</p>
+<h3 id="1-macro-detection">1. Macro Detection</h3>
+<p>GUI clicks are timestamped per player. If two consecutive clicks arrive within 20 ms of each other, the second click is blocked and a warning is logged. This prevents automated macro clicking in the rank GUI.</p>
+<h3 id="2-command-rate-limiting">2. Command Rate Limiting</h3>
+<p><code>/rank up</code> and similar commands are subject to a 1 000 ms (1 second) per-player cooldown. Attempts within the cooldown window are silently ignored.</p>
+<h3 id="3-admin-rollback-tracking">3. Admin Rollback Tracking</h3>
+<p>Admin rank changes (via <code>/rank set</code>, <code>/rank force</code>, <code>/rank reset</code>) are logged in <code>AntiAbuseManager</code> as pending rollback actions. This creates an audit trail that can be reviewed with <code>/rank security</code>.</p>
+<h3 id="anti-bypass-manager">Anti-Bypass Manager</h3>
+<p><code>AntiBypassManager</code> provides additional protection against players finding exploits to bypass rank requirements. Configuration is in <code>config.yml</code>.</p>
+<h3 id="rankup-queue">Rankup Queue</h3>
+<p><code>RankupQueue</code> prevents concurrent rankup processing for the same player — if a rankup is already being processed for a player, subsequent attempts are queued or rejected until the first completes. This prevents double-rankup race conditions.</p>
+<hr></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>

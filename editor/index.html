@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit and export RankForge rank definitions in a browser-friendly interface.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>RankForge Editor</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="../docs/index.html">Docs</a>
+                <a href="index.html" class="active">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="editor-shell">
+        <aside class="editor-sidebar" aria-label="Rank editor navigation">
+            <h2>Rank Editor</h2>
+            <p>Manage the imported <code>ranks.yml</code> structure.</p>
+            <label class="editor-label" for="defaultRank">Default rank</label>
+            <input class="editor-input" id="defaultRank" type="text" value="Guest">
+            <div class="editor-rank-list" id="rankList"></div>
+            <div class="editor-sidebar-actions">
+                <button class="btn btn-primary" id="addRank" type="button"><i class="fa-solid fa-plus"></i> Add rank</button>
+                <button class="btn btn-secondary" id="resetDraft" type="button"><i class="fa-solid fa-rotate-left"></i> Reset draft</button>
+            </div>
+        </aside>
+
+        <main class="editor-main">
+            <div class="editor-toolbar">
+                <div>
+                    <h1>Configure progression</h1>
+                    <p>Shape the same nested rank structure used by RankForge.</p>
+                </div>
+                <div class="editor-toolbar-actions">
+                    <button class="btn btn-secondary" id="copyYaml" type="button"><i class="fa-regular fa-copy"></i> Copy YAML</button>
+                    <button class="btn btn-secondary" id="saveDraft" type="button"><i class="fa-solid fa-floppy-disk"></i> Save draft</button>
+                    <button class="btn btn-primary" id="exportYaml" type="button"><i class="fa-solid fa-download"></i> Export YAML</button>
+                </div>
+            </div>
+            <div class="editor-status" id="editorStatus" role="status" aria-live="polite"></div>
+            <div class="editor-notice"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is a client-side editor. Drafts stay in this browser; use <strong>Export YAML</strong> to download a file for <code>plugins/RankForge/ranks.yml</code>. The source file is never changed automatically.</div>
+            <div class="editor-empty" id="editorEmpty" hidden>No rank selected.</div>
+            <form id="rankForm" autocomplete="off"></form>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="editor.js"></script>
+</body>
+</html>

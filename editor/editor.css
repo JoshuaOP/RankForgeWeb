@@ -1,0 +1,417 @@
+/* Editor Shell Layout */
+.editor-shell {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 2rem;
+    max-width: 1300px;
+    min-height: calc(100vh - 70px);
+    margin: 70px auto 0;
+    padding: 2.5rem 2rem;
+}
+
+/* Editor Sidebar */
+.editor-sidebar {
+    align-self: start;
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.editor-sidebar h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+.editor-sidebar > p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Labels & Form Elements */
+.editor-label,
+.editor-field label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.4rem;
+}
+
+.editor-input,
+.editor-select,
+.editor-textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    color: var(--text-main);
+    background: #232428;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: 0;
+    font: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.editor-input:focus,
+.editor-select:focus,
+.editor-textarea:focus {
+    border-color: var(--accent-color);
+}
+
+.editor-select option {
+    background: var(--card-bg);
+}
+
+.editor-sidebar .editor-input {
+    margin-bottom: 1.5rem;
+}
+
+/* Rank List Navigation in Sidebar */
+.editor-rank-list {
+    display: grid;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.editor-rank {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.editor-rank:hover {
+    color: var(--text-main);
+    background: rgba(88, 101, 242, 0.1);
+}
+
+.editor-rank.active {
+    color: var(--text-main);
+    background: rgba(88, 101, 242, 0.16);
+    border-color: rgba(88, 101, 242, 0.5);
+}
+
+.editor-rank small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.editor-sidebar-actions {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.editor-sidebar-actions .btn {
+    justify-content: center;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+/* Main Workspace */
+.editor-main {
+    min-width: 0;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.editor-toolbar h1 {
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+    color: var(--text-main);
+}
+
+.editor-toolbar p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 1rem;
+}
+
+.editor-toolbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.editor-toolbar-actions .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Status & Notices */
+.editor-status {
+    min-height: 1.5rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.editor-status.saved {
+    color: #7dd3a7;
+}
+
+.editor-notice {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    color: var(--text-muted);
+    background: rgba(88, 101, 242, 0.1);
+    border: 1px solid rgba(88, 101, 242, 0.25);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.editor-notice strong {
+    color: var(--text-main);
+}
+
+/* Editor Cards & Grids */
+.editor-card {
+    margin-bottom: 1.5rem;
+    padding: 1.75rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.editor-card h2 {
+    margin-bottom: 0.4rem;
+    font-size: 1.3rem;
+    color: var(--text-main);
+}
+
+.editor-card > p {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+}
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.editor-grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.editor-field.full {
+    grid-column: 1 / -1;
+}
+
+.editor-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Dynamic Rows and Lists */
+.editor-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.editor-list-row,
+.editor-map-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.editor-list-row .editor-input,
+.editor-map-row .editor-input {
+    flex: 1;
+}
+
+.editor-remove {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: var(--text-muted);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editor-remove:hover {
+    color: #ff8f8f;
+    border-color: #a75a5a;
+    background: rgba(255, 143, 143, 0.1);
+}
+
+.editor-add {
+    width: fit-content;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.85rem;
+    color: var(--accent-color);
+    background: #232428;
+    border: 1px dashed rgba(88, 101, 242, 0.55);
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.editor-add:hover {
+    background: rgba(88, 101, 242, 0.1);
+}
+
+/* Non-White Button Styles override */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #36393f;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-primary:hover {
+    background-color: #40444b;
+    border-color: var(--accent-color);
+}
+
+.btn-secondary {
+    background-color: #232428;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #2b2d31;
+    border-color: var(--text-muted);
+}
+
+/* Previews & Empty States */
+.editor-preview {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: #232428;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.editor-preview-icon {
+    display: grid;
+    flex: 0 0 52px;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    color: var(--accent-color);
+    background: rgba(88, 101, 242, 0.13);
+    border: 1px solid rgba(88, 101, 242, 0.35);
+    border-radius: 10px;
+    font-size: 1.4rem;
+}
+
+.editor-preview h3 {
+    margin-bottom: 0.2rem;
+    color: var(--text-main);
+}
+
+.editor-preview p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.editor-empty {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--card-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    font-size: 1.05rem;
+}
+
+.editor-empty[hidden] {
+    display: none;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 980px) {
+    .editor-shell {
+        grid-template-columns: 240px minmax(0, 1fr);
+        padding: 2rem 1.5rem;
+    }
+
+    .editor-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-shell {
+        display: block;
+        padding: 1.5rem 1rem 3rem;
+        margin-top: 70px;
+    }
+
+    .editor-sidebar {
+        position: static;
+        max-height: none;
+        margin-bottom: 1.5rem;
+    }
+
+    .editor-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .editor-toolbar-actions {
+        justify-content: flex-start;
+    }
+
+    .editor-grid,
+    .editor-grid.two {
+        grid-template-columns: 1fr;
+    }
+}

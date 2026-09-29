@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>APIs &amp; history · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html" class="active">APIs &amp; history</a></li><li><a href="guides.html">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>APIs &amp; history</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="rest-api-1">🌐 REST API</h2>
+<p>RankForge includes an optional lightweight embedded HTTP server for external dashboard and monitoring integrations.</p>
+<h3 id="enabling">Enabling</h3>
+<pre class="docs-code"><code class="language-yaml">rest-api:
+  enabled: true
+  port: 4567
+  token: "my_secret_token"    # Leave empty to disable auth (development only)</code></pre>
+<p>Run <code>/rank reload</code> after changing these settings.</p>
+<h3 id="endpoints">Endpoints</h3>
+<p>All endpoints are <code>GET</code> only. Responses are <code>application/json</code>.</p>
+<h4 id="get-apistatus"><code>GET /api/status</code></h4>
+<p>Plugin status and rank count.</p>
+<pre class="docs-code"><code class="language-json">{
+  "plugin": "RankForge",
+  "version": "3.7",
+  "ranks": 5,
+  "players": 12
+}</code></pre>
+<h4 id="get-apiranks"><code>GET /api/ranks</code></h4>
+<p>Array of all loaded rank definitions.</p>
+<pre class="docs-code"><code class="language-json">[
+  {
+    "id": "Guest",
+    "displayName": "&amp;7[Guest]",
+    "nextRank": "Member",
+    "slot": 11,
+    "requiredMoney": 0,
+    "requiredXpLevel": 0
+  },
+  ...
+]</code></pre>
+<h4 id="get-apiplayeruuid"><code>GET /api/player/{uuid}</code></h4>
+<p>Rank data for a specific player (must be in the active cache).</p>
+<pre class="docs-code"><code class="language-json">{
+  "uuid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "name": "Steve",
+  "rank": "Veteran",
+  "experience": 1500,
+  "money": 62500.0
+}</code></pre>
+<h3 id="authentication">Authentication</h3>
+<p>When <code>token</code> is set, every request must include:</p>
+<pre class="docs-code"><code>Authorization: Bearer my_secret_token</code></pre>
+<p>Requests without a valid token receive <code>401 Unauthorized</code>.</p>
+<div class="docs-callout warning"><p><strong>Never expose the REST API port to the public internet.</strong> Place it behind a reverse proxy (nginx, Caddy) with TLS, or restrict it to localhost/VPN access only. The embedded server has no TLS support.</p></div>
+<hr></section>
+<section class="docs-section"><h2 id="experience-rank-history">📈 Experience &amp; Rank History</h2>
+<h3 id="experience-manager">Experience Manager</h3>
+<p>RankForge tracks a <strong>custom experience value</strong> per player (separate from vanilla Minecraft XP). This can be used in conjunction with external systems.</p>
+<pre class="docs-code"><code class="language-bash"># Admin commands
+/rank xp                          ← view your own XP
+/rank xp set Steve 1000           ← set Steve's XP to 1000
+/rank xp add Steve 250            ← add 250 XP to Steve</code></pre>
+<p>The experience value is stored in the player's data record and accessible via the API:</p>
+<pre class="docs-code"><code class="language-java">long xp = plugin.getExperienceManager().getXp(player);
+plugin.getExperienceManager().set(player, 500L);
+plugin.getExperienceManager().award(player, 100L);</code></pre>
+<h3 id="rank-history">Rank History</h3>
+<p>Every rank change (rankup, admin set, force, reset) is recorded by <code>RankHistoryManager</code> with a timestamp.</p>
+<p>Players can view their own history:</p>
+<pre class="docs-code"><code>/rank history</code></pre>
+<p>Output shows the last 10 entries (older entries are shown as a count). History is stored persistently and loaded asynchronously to avoid blocking the main thread.</p>
+<p>Admins can pull up any player's history — online or offline — either with <code>/rank history &lt;player&gt;</code> or by clicking the <strong>Rank History</strong> button in the <a href="gui.html#gui-system">Player Data Editor GUI</a>, both of which share the same formatter so the output is always consistent regardless of where it's viewed from.</p>
+<hr></section>
+<section class="docs-section"><h2 id="developer-api">🧩 Developer API</h2>
+<p>RankForge exposes a public API at <code>com.joshuaop.rankforge.api.RankForgeAPI</code>.</p>
+<h3 id="adding-as-a-dependency">Adding as a Dependency</h3>
+<p><strong>Maven:</strong></p>
+<pre class="docs-code"><code class="language-xml">&lt;repository&gt;
+  &lt;id&gt;jitpack.io&lt;/id&gt;
+  &lt;url&gt;https://jitpack.io&lt;/url&gt;
+&lt;/repository&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;com.github.JoshuaOP&lt;/groupId&gt;
+  &lt;artifactId&gt;RankForge&lt;/artifactId&gt;
+  &lt;version&gt;3.7&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+<p><strong>Gradle:</strong></p>
+<pre class="docs-code"><code class="language-groovy">repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    compileOnly 'com.github.JoshuaOP:RankForge:3.7'
+}</code></pre>
+<p><strong><code>plugin.yml</code>:</strong></p>
+<pre class="docs-code"><code class="language-yaml">softdepend: [RankForge]</code></pre>
+<h3 id="getting-the-api-instance">Getting the API Instance</h3>
+<pre class="docs-code"><code class="language-java">import com.joshuaop.rankforge.api.RankForgeAPI;
+
+public class MyPlugin extends JavaPlugin {
+    private RankForgeAPI rankForge;
+
+    @Override
+    public void onEnable() {
+        if (getServer().getPluginManager().getPlugin("RankForge") != null) {
+            rankForge = RankForgeAPI.getInstance();
+        }
+    }
+}</code></pre>
+<h3 id="core-api-methods">Core API Methods</h3>
+<pre class="docs-code"><code class="language-java">RankForgeAPI api = RankForgeAPI.getInstance();
+
+// ── Read player data ──────────────────────────────────
+PlayerRank rank = api.getPlayerRank(player);
+String rankId   = rank.getRankId();
+
+// ── Trigger rankup ────────────────────────────────────
+boolean success = api.rankUp(player);
+
+// ── Set rank ──────────────────────────────────────────
+api.setRank(player, "Veteran");
+api.setRank(player, "Veteran", commandSenderForAudit);
+
+// ── Reset rank ────────────────────────────────────────
+api.resetRank(player);
+api.resetRank(player, commandSenderForAudit);
+
+// ── Progress ──────────────────────────────────────────
+double progressPercent = api.getProgress(player);    // 0.0–100.0
+
+// ── Crossplay-safe name ───────────────────────────────
+String cleanName = api.getCleanName(player);         // Strips Bedrock prefix
+
+// ── Experience ────────────────────────────────────────
+long xp = api.getExperienceManager().getXp(player);
+api.getExperienceManager().award(player, 100L);
+api.getExperienceManager().set(player, 500L);
+
+// ── History ───────────────────────────────────────────
+List&lt;RankHistoryEntry&gt; history = api.getHistoryManager().getHistory(uuid);</code></pre>
+<h3 id="listening-to-rankforge-events">Listening to RankForge Events</h3>
+<p>All events are in <code>com.joshuaop.rankforge.api.event</code>.</p>
+<h4 id="rankupevent-cancellable"><code>RankupEvent</code> (Cancellable)</h4>
+<p>Fired when a player is about to rank up via <code>/rank up</code> or the API.</p>
+<pre class="docs-code"><code class="language-java">@EventHandler
+public void onRankup(RankupEvent event) {
+    Player player   = event.getPlayer();
+    String oldRank  = event.getOldRankId();
+    String newRank  = event.getNewRankId();
+
+    // Cancel the rankup
+    if (someCondition) {
+        event.setCancelled(true);
+        player.sendMessage("Rankup blocked!");
+        return;
+    }
+
+    // Custom logic
+    player.sendMessage("Congrats on reaching " + newRank + "!");
+}</code></pre>
+<h4 id="ranksetevent"><code>RankSetEvent</code></h4>
+<p>Fired when a rank is set via <code>/rank set</code> or <code>api.setRank()</code>.</p>
+<pre class="docs-code"><code class="language-java">@EventHandler
+public void onRankSet(RankSetEvent event) {
+    String newRank = event.getNewRankId();
+    // Log or react to admin rank changes
+}</code></pre>
+<h4 id="rankresetevent"><code>RankResetEvent</code></h4>
+<p>Fired when a rank is reset via <code>/rank reset</code> or <code>api.resetRank()</code>.</p>
+<pre class="docs-code"><code class="language-java">@EventHandler
+public void onRankReset(RankResetEvent event) {
+    Player player = event.getPlayer();
+    // React to rank resets
+}</code></pre>
+<h3 id="registering-a-custom-requirement">Registering a Custom Requirement</h3>
+<pre class="docs-code"><code class="language-java">import com.joshuaop.rankforge.api.requirement.CustomRequirement;
+import com.joshuaop.rankforge.rank.RankModel;
+import org.bukkit.entity.Player;
+
+public class QuestsRequirement implements CustomRequirement {
+
+    @Override
+    public String getId() {
+        return "myplugin:quests_completed";
+    }
+
+    @Override
+    public boolean check(Player player, RankModel rank, String configValue) {
+        int required = Integer.parseInt(configValue);
+        int completed = MyQuestPlugin.getCompleted(player);
+        return completed &gt;= required;
+    }
+
+    @Override
+    public String getUnmetMessage(Player player, RankModel rank, String configValue) {
+        int required  = Integer.parseInt(configValue);
+        int completed = MyQuestPlugin.getCompleted(player);
+        return "§7Quests: §c" + completed + "/" + required;
+    }
+}
+
+// Register during onEnable — after RankForge is loaded:
+RankForgeAPI api = RankForgeAPI.getInstance();
+if (api != null) {
+    api.getCustomRequirementRegistry().register(new QuestsRequirement());
+}
+
+// Then configure per-rank in Java (not YAML):
+plugin.getRequirementManager().addRankRequirement("Elite", "myplugin:quests_completed", "10");</code></pre>
+<h3 id="replacing-the-gui">Replacing the GUI</h3>
+<pre class="docs-code"><code class="language-java">import com.joshuaop.rankforge.api.gui.ExternalGUIProvider;
+
+public class MyGUIProvider implements ExternalGUIProvider {
+
+    @Override
+    public GuiType getType() {
+        return GuiType.RANK_TREE;
+    }
+
+    @Override
+    public void open(Player player) {
+        // Open your custom GUI
+        MyCustomGUI.open(player);
+    }
+}
+
+// Register:
+api.getExternalGUIRegistry().register(new MyGUIProvider());</code></pre>
+<h3 id="registering-a-plugin-hook">Registering a Plugin Hook</h3>
+<pre class="docs-code"><code class="language-java">import com.joshuaop.rankforge.api.hook.PluginHook;
+
+public class MyHook implements PluginHook {
+    @Override
+    public String getId() { return "myplugin"; }
+
+    @Override
+    public void onEnable()  { /* hook setup */ }
+
+    @Override
+    public void onDisable() { /* hook teardown */ }
+}
+
+api.getHookRegistry().register(new MyHook());</code></pre>
+<hr></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>

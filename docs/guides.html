@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete RankForge documentation converted from README.md.">
+    <link rel="icon" href="../assets/img/icon.png">
+    <title>Guides &amp; reference · RankForge Docs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo-brand">
+                <img src="../assets/img/icon.png" alt="RankForge Icon" class="nav-icon">
+                <img src="../assets/img/logo.png" alt="RankForge Logo" class="nav-logo-img">
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">Docs</a>
+                <a href="../editor/index.html">Editor</a>
+                <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </nav>
+            <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+        </div>
+    </header>
+
+    <div class="docs-shell">
+        <aside class="docs-sidebar" aria-label="Documentation pages">
+            <h2>README pages</h2>
+            <ul><li><a href="index.html">Getting Started</a></li><li><a href="configuration.html">Configuration</a></li><li><a href="commands.html">Commands &amp; permissions</a></li><li><a href="requirements.html">Requirements &amp; rewards</a></li><li><a href="gui.html">GUI &amp; presentation</a></li><li><a href="integrations.html">Integrations &amp; systems</a></li><li><a href="api.html">APIs &amp; history</a></li><li><a href="guides.html" class="active">Guides &amp; reference</a></li></ul>
+        </aside>
+        <main class="docs-main">
+            <section class="docs-hero">
+                <span class="badge">Complete README conversion</span>
+                <h1>Guides &amp; reference</h1>
+                <p>Every section below is converted from the project README while using RankForge's existing visual system.</p>
+                <label class="docs-search" for="docsSearch">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input id="docsSearch" type="search" placeholder="Search this documentation page" autocomplete="off">
+                </label>
+            </section>
+            <div class="docs-prose"><section class="docs-section"><h2 id="full-configuration-examples">📝 Full Configuration Examples</h2>
+<h3 id="survival-server-5-ranks">Survival Server (5 Ranks)</h3>
+<details class="docs-details">
+<summary><strong>Click to expand</strong></summary>
+<pre class="docs-code"><code class="language-yaml"># ranks.yml
+default-rank: Guest
+
+ranks:
+  Guest:
+    display-name: "&amp;7[Guest]"
+    next-rank: "Member"
+    slot: 10
+    material: GRAY_WOOL
+    lore:
+      - "&amp;7Welcome to the server!"
+    chat-prefix: "&amp;7[G]"
+    permissions: []
+    commands: []
+    required-money: 0
+    required-xp-level: 0
+    required-playtime: 0
+    required-mob-kills: 0
+    required-block-breaks: 0
+    required-items: {}
+
+  Member:
+    display-name: "&amp;a[Member]"
+    next-rank: "Veteran"
+    slot: 13
+    material: GREEN_WOOL
+    lore:
+      - "&amp;7A trusted member."
+      - ""
+      - "&amp;eRequires:"
+      - "  &amp;7$500 | 5 XP | 1 hour"
+    chat-prefix: "&amp;a[M]"
+    permissions:
+      - "essentials.sethome.multiple.2"
+    commands:
+      - "lp user %player% group set member"
+      - "eco take %player% 500"
+    required-money: 500
+    required-xp-level: 5
+    required-playtime: 60
+    required-mob-kills: 0
+    required-block-breaks: 0
+    required-items: {}
+
+  Veteran:
+    display-name: "&amp;2[Veteran]"
+    next-rank: "Elite"
+    slot: 16
+    material: EMERALD
+    lore:
+      - "&amp;7A seasoned player."
+    chat-prefix: "&amp;2[V]"
+    permissions:
+      - "essentials.sethome.multiple.4"
+    commands:
+      - "lp user %player% group set veteran"
+      - "eco take %player% 10000"
+      - "give %player% GOLDEN_APPLE 3"
+    required-money: 10000
+    required-xp-level: 30
+    required-playtime: 600
+    required-mob-kills: 200
+    required-block-breaks: 10000
+    required-items:
+      DIAMOND: 5
+
+  Elite:
+    display-name: "&amp;b[Elite]"
+    next-rank: "Legend"
+    slot: 22
+    material: DIAMOND
+    lore:
+      - "&amp;7Among the best."
+    chat-prefix: "&amp;b[E]"
+    permissions:
+      - "essentials.sethome.multiple.6"
+    commands:
+      - "lp user %player% group set elite"
+      - "eco take %player% 50000"
+    required-money: 50000
+    required-xp-level: 60
+    required-playtime: 3000
+    required-mob-kills: 1000
+    required-block-breaks: 100000
+    required-items:
+      DIAMOND: 32
+      NETHERITE_INGOT: 2
+
+  Legend:
+    display-name: "&amp;6&amp;l[Legend]"
+    next-rank: ""
+    slot: 31
+    material: NETHER_STAR
+    lore:
+      - "&amp;6The highest rank."
+      - "&amp;7Only the truly dedicated reach this."
+    chat-prefix: "&amp;6&amp;l[L]"
+    permissions:
+      - "essentials.sethome.multiple.10"
+    commands:
+      - "lp user %player% group set legend"
+      - "eco take %player% 200000"
+      - "broadcast &amp;6✦ %player% &amp;rhas become a LEGEND! &amp;6✦"
+    required-money: 200000
+    required-xp-level: 100
+    required-playtime: 10000
+    required-mob-kills: 5000
+    required-block-breaks: 500000
+    required-items:
+      NETHERITE_INGOT: 10
+      DRAGON_EGG: 1
+    required-quests:
+      - "ender_dragon"</code></pre>
+</details>
+<h3 id="prison-server-az">Prison Server (A→Z)</h3>
+<details class="docs-details">
+<summary><strong>Click to expand</strong></summary>
+<pre class="docs-code"><code class="language-yaml"># ranks.yml
+default-rank: A
+
+ranks:
+  A:
+    display-name: "&amp;7[A]"
+    next-rank: "B"
+    slot: 0
+    material: GRAY_WOOL
+    lore: ["&amp;7Mine the A mine."]
+    chat-prefix: "&amp;7[A]"
+    permissions: ["mines.a"]
+    commands: []
+    required-money: 0
+    required-xp-level: 0
+    required-playtime: 0
+    required-mob-kills: 0
+    required-block-breaks: 0
+    required-items: {}
+
+  B:
+    display-name: "&amp;f[B]"
+    next-rank: "C"
+    slot: 1
+    material: WHITE_WOOL
+    lore: ["&amp;7Mine the B mine."]
+    chat-prefix: "&amp;f[B]"
+    permissions: ["mines.b"]
+    commands:
+      - "lp user %player% group set B"
+      - "eco take %player% 5000"
+    required-money: 5000
+    required-xp-level: 0
+    required-playtime: 0
+    required-mob-kills: 0
+    required-block-breaks: 500
+    required-items: {}
+
+  # ... repeat the pattern through Z ...
+
+  Z:
+    display-name: "&amp;6&amp;l[Z] FREE"
+    next-rank: ""
+    slot: 25
+    material: GOLD_BLOCK
+    lore:
+      - "&amp;6You've earned your freedom!"
+    chat-prefix: "&amp;6[FREE]"
+    permissions: ["mines.free", "prison.free"]
+    commands:
+      - "lp user %player% group set free"
+      - "eco take %player% 10000000"
+      - "broadcast &amp;6%player% has earned their FREEDOM from prison!"
+    required-money: 10000000
+    required-xp-level: 0
+    required-playtime: 0
+    required-mob-kills: 0
+    required-block-breaks: 1000000
+    required-items: {}</code></pre>
+</details>
+<hr></section>
+<section class="docs-section"><h2 id="best-practices">💡 Best Practices</h2>
+<h3 id="rank-id-naming">Rank ID Naming</h3>
+<ul><li>Use <code>PascalCase</code> or <code>UPPERCASE</code>: <code>Guest</code>, <code>Member</code>, <code>Veteran</code> or <code>RANK_A</code>, <code>RANK_B</code></li><li>Avoid spaces and special characters</li><li>Keep IDs short — they appear in logs, commands, and API calls</li></ul>
+<h3 id="requirement-scaling">Requirement Scaling</h3>
+<ul><li>Scale requirements <strong>exponentially</strong>, not linearly. Each rank should be noticeably harder than the last</li><li>Combine multiple requirement types to prevent any single grind path from being exploitable (e.g., money + playtime together prevent AFK farming)</li><li>Use <code>required-block-breaks</code> on survival/skyblock servers; use <code>required-mob-kills</code> on combat servers</li></ul>
+<h3 id="luckperms-groups">LuckPerms Groups</h3>
+<ul><li>Create a matching LuckPerms group for every rank before configuring RankForge</li><li>Use <code>commands</code> entries to call <code>lp user %player% group set &lt;group&gt;</code> — this is permanent, unlike the <code>permissions</code> field which is session-based</li></ul>
+<h3 id="yaml-editing-safety">YAML Editing Safety</h3>
+<ul><li>Always run <code>/rank reload</code> after editing <code>ranks.yml</code>, never <code>/reload</code></li><li>Use a YAML validator before applying changes on a live server</li><li>Take a backup of <code>ranks.yml</code> before major restructuring</li></ul>
+<h3 id="mysql-on-networks">MySQL on Networks</h3>
+<ul><li>Use MySQL if you run more than one server (BungeeCord/Velocity) and want shared rank data</li><li>Ensure the MySQL user has only <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> on the <code>rankforge</code> database (no <code>DROP</code> or <code>CREATE</code>)</li></ul>
+<hr></section>
+<section class="docs-section"><h2 id="frequently-asked-questions">❓ Frequently Asked Questions</h2>
+<details class="docs-details">
+<summary><strong>Why isn't my rank saving between restarts?</strong></summary>
+<p>If using YAML storage, ensure the server is shutting down gracefully (not SIGKILL). RankForge performs a synchronous flush on <code>onDisable()</code>. If the server is killed abruptly, the last sync interval's changes may be lost. Use MySQL for stronger durability guarantees.</p>
+</details>
+<details class="docs-details">
+<summary><strong>The money requirement isn't being checked.</strong></summary>
+<p>Vault must be installed and an economy plugin must be registered with it. Check the startup log:</p>
+<pre class="docs-code"><code>[RankForge] [SoftDep] Vault=✓ ...</code></pre>
+<p>If Vault shows <code>✗</code>, install Vault. If Vault shows <code>✓</code> but economy is still not working, check whether your economy plugin registers with Vault on startup.</p>
+</details>
+<details class="docs-details">
+<summary><strong>Permissions aren't being applied on login.</strong></summary>
+<p>The <code>permissions</code> field grants session-based permissions. With LuckPerms, these are applied as transient nodes when the player joins. Check:</p>
+<ol><li>LuckPerms shows <code>✓</code> in the startup log</li><li>The permission node in <code>permissions</code> is correctly spelled</li><li>There are no LuckPerms policy restrictions blocking transient nodes</li></ol>
+<p>For permanent permissions, use <code>commands</code> with <code>lp user %player% permission set &lt;node&gt; true</code>.</p>
+</details>
+<details class="docs-details">
+<summary><strong>Players can't rank up even though they meet all requirements.</strong></summary>
+<p>Run <code>/rank requirements</code> as the player to see which requirements are unmet. Also check:</p>
+<ul><li>The <code>next-rank</code> field on their current rank is set correctly</li><li>The player's rank ID exists in <code>ranks.yml</code></li><li><code>debug: true</code> in <code>config.yml</code> for detailed logs</li></ul>
+</details>
+<details class="docs-details">
+<summary><strong>%rankforge_*% placeholders show as literal text.</strong></summary>
+<p>PlaceholderAPI must be installed. Check the startup log for <code>PlaceholderAPI=✓</code>. If PAPI is installed but placeholders still don't resolve, run <code>/papi reload</code> and verify the plugin that uses them supports PAPI (check its documentation).</p>
+</details>
+<details class="docs-details">
+<summary><strong>My rank GUI is blank / shows wrong items.</strong></summary>
+<p>Each rank's icon is determined by its <code>material</code> field. If an invalid material name is used, the item defaults to <code>GRAY_WOOL</code>. The <code>slot</code> field must be unique per rank (0–53). Run <code>/rank editor drag</code> to visually verify and correct slot assignments.</p>
+</details>
+<details class="docs-details">
+<summary><strong>Block breaks aren't being counted.</strong></summary>
+<p>RankForge's <code>BlockBreakTracker</code> uses a <code>BlockBreakEvent</code> listener. Ensure no other plugin is cancelling this event before RankForge processes it. In <code>debug: true</code> mode, block break events are logged for each player.</p>
+</details>
+<details class="docs-details">
+<summary><strong>Can I have the same player on multiple rank systems?</strong></summary>
+<p>RankForge uses a single linear rank chain. If you need separate progression paths (e.g., survival and donor), create distinct rank IDs and manage them via separate <code>commands</code> entries and LuckPerms groups. Multi-track support is not built in but can be simulated via the API.</p>
+</details>
+<hr></section>
+<section class="docs-section"><h2 id="troubleshooting">🔍 Troubleshooting</h2>
+<h3 id="enable-debug-mode">Enable Debug Mode</h3>
+<pre class="docs-code"><code class="language-yaml"># config.yml
+debug: true</code></pre>
+<p>Reload with <code>/rank reload</code>. Debug mode prints detailed logs for:</p>
+<ul><li>Requirement checks per player</li><li>Block-break counter updates</li><li>Cache hits/misses</li><li>Storage read/write operations</li><li>Performance mode transitions</li></ul>
+<h3 id="common-errors">Common Errors</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Error Message</th><th>Cause</th><th>Fix</th></tr></thead><tbody><tr><td><code>[SoftDep] Vault=✗</code></td><td>Vault not installed</td><td>Install Vault</td></tr><tr><td><code>[DB] Defaulting to fallback local storage</code></td><td>MySQL connection failed</td><td>Check <code>config.yml</code> credentials; verify MySQL is running</td></tr><tr><td><code>[RankYaml] Failed to save ranks.yml</code></td><td>File permissions issue</td><td>Check the server process has write access to <code>plugins/RankForge/</code></td></tr><tr><td><code>Unknown subcommand</code></td><td>Typo in command</td><td>Run <code>/rank help</code> to see all valid subcommands</td></tr><tr><td><code>Rank 'X' does not exist</code></td><td>Rank ID not found in <code>ranks.yml</code></td><td>Check spelling; run <code>/rank reload</code> after adding the rank</td></tr><tr><td><code>[Requirements] Unknown statistic</code></td><td>Invalid <code>required-statistic-id</code></td><td>Check the Bukkit Statistic enum name (must be uppercase, untyped)</td></tr><tr><td><code>[AntiAbuse] Macro-like click detected</code></td><td>Player clicking GUI too fast</td><td>Normal if player has no macro; report if persistent on legitimate players</td></tr></tbody></table></div>
+<h3 id="checking-the-startup-log">Checking the Startup Log</h3>
+<p>A healthy startup looks like:</p>
+<pre class="docs-code"><code>[RankForge] [SoftDep] Vault=✓  LuckPerms=✓  PlaceholderAPI=✓  Floodgate=✗
+[RankForge] [Lang] Dynamically indexed 4 language profiles: [en, es, fil, id]
+[RankForge] [REST] API server listening on port 4567   ← (if enabled)
+[RankForge] RankForge v3.7 successfully loaded! (5 ranks compiled)</code></pre>
+<p>If the rank count shows <code>(0 ranks compiled)</code>, <code>ranks.yml</code> failed to parse. Check for YAML syntax errors (indentation, missing colons, tab characters).</p>
+<h3 id="checking-player-data">Checking Player Data</h3>
+<p>Use <code>/rank debug</code> (run as the player) or the Player List GUI (<code>/rank playerlist</code>) to inspect a player's current rank, XP, and cached data.</p>
+<hr></section>
+<section class="docs-section"><h2 id="contributing">🤝 Contributing</h2>
+<p>Contributions are welcome! Please follow these steps:</p>
+<ol><li><strong>Fork</strong> the repository on GitHub</li><li><strong>Branch</strong> from <code>main</code>: <code>git checkout -b feature/my-feature</code></li><li><strong>Code</strong> your changes following the existing style (Java 21, no wildcard imports, Javadoc on all public API methods)</li><li><strong>Test</strong> on a local Paper 1.21.4 server</li><li><strong>Commit</strong> with a clear message: <code>git commit -m "feat: add custom statistic requirement support"</code></li><li><strong>Open a Pull Request</strong> targeting <code>main</code></li></ol>
+<h3 id="bug-reports">Bug Reports</h3>
+<p>Use <a href="https://github.com/JoshuaOP/RankForge/issues" target="_blank" rel="noreferrer">GitHub Issues</a>. Include:</p>
+<ul><li>Server software and exact version (e.g., <code>Paper 1.21.4 #123</code>)</li><li>Java version (<code>java -version</code>)</li><li>Full error from <code>logs/latest.log</code></li><li>Your <code>config.yml</code> and <code>ranks.yml</code> (remove credentials)</li><li>Steps to reproduce</li></ul>
+<hr></section>
+<section class="docs-section"><h2 id="support">💬 Support</h2>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Channel</th><th>Link</th></tr></thead><tbody><tr><td>🐛 <strong>Bug Reports</strong></td><td><a href="https://github.com/JoshuaOP/RankForge/issues" target="_blank" rel="noreferrer">GitHub Issues</a></td></tr><tr><td>💡 <strong>Feature Requests</strong></td><td><a href="https://github.com/JoshuaOP/RankForge/discussions" target="_blank" rel="noreferrer">GitHub Discussions</a></td></tr><tr><td>📖 <strong>Source Code</strong></td><td><a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer">github.com/JoshuaOP/RankForge</a></td></tr></tbody></table></div>
+<div class="docs-callout note"><p>Before opening an issue, enable <code>debug: true</code>, reproduce the problem, and include the relevant log section. Issues without reproduction steps may be closed without resolution.</p></div>
+<hr></section>
+<section class="docs-section"><h2 id="license">📄 License</h2>
+<pre class="docs-code"><code>MIT License
+
+Copyright (c) 2024 JoshuaOP
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</code></pre>
+<p>See <a href="../LICENSE">LICENSE</a> for the full text.</p>
+<hr></section>
+<section class="docs-section"><h2 id="credits">🙏 Credits</h2>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Name / Project</th><th>Role</th></tr></thead><tbody><tr><td><strong>JoshuaOP</strong></td><td>Author &amp; lead developer</td></tr><tr><td><strong>Vault</strong> (<a href="https://github.com/MilkBowl/Vault" target="_blank" rel="noreferrer">MilkBowl</a>)</td><td>Economy abstraction API</td></tr><tr><td><strong>LuckPerms</strong> (<a href="https://luckperms.net/" target="_blank" rel="noreferrer">Luck</a>)</td><td>Permission management API</td></tr><tr><td><strong>PlaceholderAPI</strong> (<a href="https://github.com/PlaceholderAPI/PlaceholderAPI" target="_blank" rel="noreferrer">extended_clip</a>)</td><td>Placeholder framework</td></tr><tr><td><strong>HikariCP</strong> (<a href="https://github.com/brettwooldridge/HikariCP" target="_blank" rel="noreferrer">brettwooldridge</a>)</td><td>High-performance JDBC connection pooling</td></tr><tr><td><strong>bStats</strong> (<a href="https://bstats.org/" target="_blank" rel="noreferrer">Bastian</a>)</td><td>Anonymous plugin analytics</td></tr><tr><td><strong>Paper Team</strong></td><td>High-performance Bukkit fork</td></tr><tr><td><strong>Community</strong></td><td>Bug reports, translations, feature suggestions</td></tr></tbody></table></div>
+<hr>
+<h3 id="behind-the-scenes-automatic-schema-handling">Behind the Scenes: Automatic Schema Handling</h3>
+<p>No manual configuration changes are ever required for playtime tracking. The <code>playtime</code> key in <code>ranks.yml</code> stays the same whether you use whole minutes or the new duration-string format:</p>
+<ol><li>RankForge automatically keeps the YAML playerdata schema up to date, adding <code>playtime: 0</code> to any record that doesn't already have it.</li><li>For MySQL, a <code>playtime_minutes</code> column is added automatically via <code>ALTER TABLE</code> on startup if it doesn't exist.</li><li>Any player without existing wall-clock playtime data starts at <code>0</code> real minutes and accumulates from that point onward.</li></ol>
+<div class="docs-callout info"><p><strong>Note:</strong> Legacy tick-based statistics are never used to back-fill wall-clock playtime. Servers that want to credit players for time already played can use an admin command or manually edit <code>playerdata.yml</code>. This is intentional — converting approximate tick counts would propagate their inaccuracy.</p></div>
+<h3 id="tips-and-best-practices">Tips and Best Practices</h3>
+<ul><li><strong>Start low.</strong> Begin with shorter playtime requirements (30–60 minutes) and increase them based on your player feedback.</li><li><strong>Combine with other requirements.</strong> Playtime alone doesn't show engagement. Pair it with <code>block-breaks</code> or <code>mob-kills</code> for a richer progression curve.</li><li><strong>AFK players.</strong> Playtime counts even while AFK. If you want to exclude AFK time, use a compatible AFK plugin that removes players from the server (which stops the timer), or use an activity-based requirement like <code>block-breaks</code> as the primary gate.</li><li><strong>Test before going live.</strong> Use <code>/rank set &lt;yourself&gt; &lt;rank&gt;</code> and <code>/rank progress</code> to verify requirements display correctly.</li><li><strong>Reload safely.</strong> Always use <code>/rank reload</code> — never <code>/reload</code>. A server reload can corrupt the tracker's session state.</li></ul>
+<h3 id="troubleshooting-playtime">Troubleshooting Playtime</h3>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead><tbody><tr><td>Playtime shows 0 for an existing player</td><td>Normal for a record with no prior wall-clock data — accumulation begins fresh</td><td>No action needed; time will accumulate naturally</td></tr><tr><td>Playtime not advancing</td><td>PlaytimeTracker not initialized</td><td>Check console for errors on startup; use <code>/rank version</code> to verify plugin loaded</td></tr><tr><td>Playtime resets on relog</td><td>Data not saving before quit</td><td>Check storage errors in console; ensure <code>playerdata.yml</code> is writable</td></tr><tr><td>Requirement shows wrong time</td><td>Stale cache</td><td>Run <code>/rank reload</code> to flush the cache</td></tr><tr><td>MySQL column missing</td><td>Very old database, migration failed</td><td>Check console for <code>[DB] Column migration check failed</code> warnings</td></tr></tbody></table></div>
+<hr></section>
+<section class="docs-section"><h2 id="frequently-asked-questions-1">❓ Frequently Asked Questions</h2>
+<h3 id="general">General</h3>
+<p><strong>Q: Does RankForge work without Vault, LuckPerms, or PlaceholderAPI?</strong> A: Yes. All three are optional. Without Vault, money requirements are skipped. Without LuckPerms, a Bukkit <code>PermissionAttachment</code> is used as fallback. Without PlaceholderAPI, the <code>%rankforge_*%</code> placeholders are simply unavailable.</p>
+<p><strong>Q: Can I have unlimited ranks?</strong> A: Yes. RankForge loads every rank defined in <code>ranks.yml</code> with no hardcoded limit.</p>
+<p><strong>Q: Does RankForge support Bedrock players (Geyser/Floodgate)?</strong> A: Yes. All storage and checks use UUID, not player name. The Bedrock prefix (<code>.</code> by default) is stripped from display names automatically.</p>
+<p><strong>Q: Will <code>/reload</code> (vanilla server reload) break the plugin?</strong> A: It can. Always use <code>/rank reload</code> instead. The vanilla reload can corrupt in-memory state and discard unsaved playtime data.</p>
+<h3 id="playtime-1">Playtime</h3>
+<p><strong>Q: How is playtime measured?</strong> A: Using <code>System.currentTimeMillis()</code> — real wall-clock time measured in milliseconds and stored as whole minutes. This is completely independent of server TPS.</p>
+<p><strong>Q: Does playtime count while the player is AFK?</strong> A: Yes, by default. The timer runs from join to quit regardless of activity. If you need AFK detection, use an external AFK plugin that disconnects inactive players, or gate progression on activity-based requirements like <code>block-breaks</code>.</p>
+<p><strong>Q: Why does a player show 0 playtime even though they've played before?</strong> A: This happens if a player's record predates wall-clock tracking being enabled on your server. The vanilla <code>PLAY_ONE_MINUTE</code> statistic (tick-based) is intentionally not used to back-fill this value, since it can be skewed by lag. Playtime accumulates accurately from that point onward.</p>
+<p><strong>Q: What happens to playtime if the server crashes?</strong> A: Playtime is periodically flushed to storage (every <code>sync.interval-ticks</code>, default 10 seconds). On a crash, up to 10 seconds of playtime may be lost. Clean shutdowns always flush everything before stopping.</p>
+<p><strong>Q: Can I manually set a player's playtime?</strong> A: Currently, this must be done by editing <code>playerdata.yml</code> while the server is stopped (or via a MySQL UPDATE). A <code>/rank playtime set</code> admin command may be added in a future version.</p>
+<p><strong>Q: My playtime requirement shows "0min" in <code>/rank progress</code> even though I've been online for an hour.</strong> A: This can happen if the tracker didn't initialize on join (e.g., the plugin reloaded while you were online). Rejoin the server — the tracker will re-register your session start. If the issue persists, check console for errors.</p>
+<p><strong>Q: Does playtime in ranks.yml still work without changes?</strong> A: Yes. The configuration key is identical. No migration of <code>ranks.yml</code> is required — only the underlying implementation changed.</p>
+<h3 id="storage">Storage</h3>
+<p><strong>Q: Which storage backend should I use?</strong> A: YAML is suitable for single servers. MySQL is recommended for networks, bungeecord/velocity proxies, or servers with more than a few hundred players. MySQL is also required if you want to query player data from external tools (dashboards, Discord bots, etc.).</p>
+<p><strong>Q: My MySQL connection fails. Will the server error out?</strong> A: No. RankForge automatically falls back to YAML storage when MySQL is unavailable, logs a single info-level message, and continues loading normally.</p>
+<p><strong>Q: How do I migrate from YAML to MySQL?</strong> A: Start the server with MySQL configured. RankForge will create the tables. Then manually export data from <code>playerdata.yml</code> and insert it into <code>rf_players</code>. A built-in migration tool may be added in a future version.</p>
+<hr></section>
+<section class="docs-section"><h2 id="troubleshooting-1">🔧 Troubleshooting</h2>
+<h3 id="plugin-fails-to-load">Plugin fails to load</h3>
+<ol><li>Check Java version: <code>java -version</code> must be 21 or higher.</li><li>Confirm you are running Spigot or Paper 1.17+.</li><li>Review the console for <code>[SEVERE]</code> messages from RankForge on startup.</li></ol>
+<h3 id="ranks-not-loading">Ranks not loading</h3>
+<ol><li>Ensure <code>ranks.yml</code> is valid YAML. Use <a href="https://yaml-online-parser.appspot.com/" target="_blank" rel="noreferrer">yaml-online-parser.appspot.com</a> to validate.</li><li>Verify the <code>default-rank</code> value matches an actual rank key.</li><li>Run <code>/rank reload</code> after editing the file.</li></ol>
+<h3 id="rank-up-does-nothing"><code>/rank up</code> does nothing</h3>
+<ol><li>Run <code>/rank progress</code> — this shows which requirements are unmet.</li><li>Confirm the current rank has a <code>next-rank</code> set.</li><li>Ensure you are not at the final rank (empty <code>next-rank</code>).</li></ol>
+<h3 id="playtime-not-advancing">Playtime not advancing</h3>
+<ol><li>Check startup log — PlaytimeTracker registers on load. If there are errors, address them.</li><li>Relog: the join event re-registers your session start.</li><li>Check if <code>/rank requirements</code> shows a playtime line. If absent, the rank has <code>playtime: 0</code> (no requirement).</li></ol>
+<h3 id="playtime-not-saving-after-restart">Playtime not saving after restart</h3>
+<ol><li>Check write permissions on <code>plugins/RankForge/data/playerdata.yml</code>.</li><li>Confirm no <code>[YamlStorage] Failed to save</code> errors appear in console.</li><li>For MySQL: check for <code>[DB] MySQL save failed</code> warnings.</li></ol>
+<h3 id="gui-not-opening">GUI not opening</h3>
+<ol><li>Ensure no other plugin is cancelling inventory open events.</li><li>Check for <code>GuiClickShieldManager</code> warnings in console.</li><li>Confirm the player has <code>rankforge.rank.use</code> permission.</li></ol>
+<h3 id="luckperms-permissions-not-applying">LuckPerms permissions not applying</h3>
+<ol><li>LuckPerms must be loaded <strong>before</strong> RankForge. Add <code>depend: [LuckPerms]</code> to LuckPerms's plugin.yml or ensure load order.</li><li>Verify the permission nodes in <code>ranks.yml</code> are valid (no spaces, valid format).</li><li>Use <code>/rank set &lt;player&gt; &lt;rank&gt;</code> to force a re-apply after fixing configuration.</li></ol>
+<h3 id="mysql-tables-not-created">MySQL tables not created</h3>
+<ol><li>Verify credentials in <code>config.yml</code> are correct.</li><li>Ensure the database user has <code>CREATE TABLE</code>, <code>ALTER</code>, and <code>INSERT</code> privileges.</li><li>Check console for <code>[DB] Failed to create MySQL tables</code> with the specific SQL error.</li></ol>
+<hr>
+<hr></section>
+<section class="docs-section"><h2 id="setup-configuration-guide">🛠️ Setup &amp; Configuration Guide</h2>
+<p>This guide walks through every step of installing and configuring RankForge from scratch.</p>
+<hr>
+<h3 id="installation-guide">📥 Installation Guide</h3>
+<h4 id="step-1-download-rankforge">Step 1 — Download RankForge</h4>
+<p>Download the latest <code>RankForge-*.jar</code> from the <a href="https://www.spigotmc.org/resources/%E2%9C%A6-rankforge-%E2%9A%A1.134929/" target="_blank" rel="noreferrer">SpigotMC resource page</a>.</p>
+<h4 id="step-2-install-the-plugin">Step 2 — Install the plugin</h4>
+<p>Drop the JAR into your server's <code>plugins/</code> folder:</p>
+<pre class="docs-code"><code>server/
+└── plugins/
+    └── RankForge-3.7.jar</code></pre>
+<h4 id="step-3-install-optional-dependencies">Step 3 — Install optional dependencies</h4>
+<p>Install any of the following soft dependencies for additional features:</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Plugin</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>Vault</strong></td><td>Money requirements and economy balance tracking</td></tr><tr><td><strong>LuckPerms</strong></td><td>Automatic permission group management on rankup</td></tr><tr><td><strong>PlaceholderAPI</strong></td><td><code>%rankforge_*%</code> placeholders in other plugins</td></tr><tr><td><strong>Floodgate / Geyser</strong></td><td>Bedrock crossplay player name handling</td></tr><tr><td><strong>MySQL</strong></td><td>(Configure in <code>config.yml</code>) Persistent relational storage for networks</td></tr></tbody></table></div>
+<p>None are required — RankForge works out of the box with no dependencies.</p>
+<h4 id="step-4-start-the-server">Step 4 — Start the server</h4>
+<p>Start your server once. RankForge auto-generates all configuration files:</p>
+<pre class="docs-code"><code>plugins/RankForge/
+├── config.yml
+├── ranks.yml
+├── gui.yml
+└── lang/
+    ├── en.yml
+    ├── es.yml
+    ├── fil.yml
+    └── id.yml</code></pre>
+<h4 id="step-5-configure-the-plugin">Step 5 — Configure the plugin</h4>
+<p>Edit the generated files (see the <a href="guides.html#configuration-guide">Configuration Guide</a> below).</p>
+<h4 id="step-6-reload-or-restart">Step 6 — Reload or restart</h4>
+<p>Apply your changes without a full restart:</p>
+<pre class="docs-code"><code>/rank reload</code></pre>
+<div class="docs-callout warning"><p>Never use the vanilla <code>/reload</code> command. It can corrupt in-memory player data and break the playtime tracker. Always use <code>/rank reload</code>.</p></div>
+<hr>
+<h3 id="configuration-guide">⚙️ Configuration Guide</h3>
+<h4 id="configyml-2"><code>config.yml</code></h4>
+<p>The master settings file. Key sections:</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Section</th><th>Key</th><th>Description</th></tr></thead><tbody><tr><td><code>language</code></td><td><code>default</code></td><td>Default language code (<code>en</code>, <code>es</code>, <code>fil</code>, <code>id</code>)</td></tr><tr><td><code>language</code></td><td><code>per-player</code></td><td>Allow players to pick their own language</td></tr><tr><td><code>announcements</code></td><td><code>rankup.broadcast</code></td><td>Broadcast message to all players on rankup</td></tr><tr><td><code>announcements</code></td><td><code>rankup.title</code></td><td>Full-screen title shown to the ranking-up player</td></tr><tr><td><code>cosmetic</code></td><td><code>bossbar.enabled</code></td><td>Boss bar on rankup and progress checks</td></tr><tr><td><code>cosmetic</code></td><td><code>tablist.enabled</code></td><td>Show rank prefix in the player list</td></tr><tr><td><code>cosmetic</code></td><td><code>particles.enabled</code></td><td>Particle trail around the player on rankup</td></tr><tr><td><code>storage</code></td><td><code>type</code></td><td><code>yaml</code> (default) or <code>mysql</code></td></tr><tr><td><code>storage</code></td><td><code>mysql.*</code></td><td>Host, port, database, username, password, pool-size</td></tr><tr><td><code>performance</code></td><td><code>modes.*-tps-threshold</code></td><td>TPS thresholds for HIGH / MEDIUM / LOW cosmetic modes</td></tr><tr><td><code>crossplay</code></td><td><code>bedrock-prefix</code></td><td>Floodgate prefix to strip from Bedrock player names</td></tr><tr><td><code>rest-api</code></td><td><code>enabled</code></td><td>Enable the optional embedded HTTP API</td></tr><tr><td><code>debug</code></td><td><em>(boolean)</em></td><td>Enable verbose debug logging</td></tr></tbody></table></div>
+<h4 id="ranksyml-3"><code>ranks.yml</code></h4>
+<p>Defines every rank. Each top-level key under <code>ranks:</code> is a rank ID.</p>
+<pre class="docs-code"><code class="language-yaml">default-rank: Guest   # Rank assigned to new / unknown players
+
+ranks:
+  RankId:
+    display-name: "&amp;aDisplay Name"
+    next-rank: "NextRankId"       # Empty string = final rank
+    slot: 11                      # GUI inventory slot (0–53)
+    material: GREEN_WOOL          # Bukkit Material name
+    lore:
+      - "&amp;7Description line"
+    chat-prefix: "&amp;a[Tag]"
+    permissions:
+      - "some.permission.node"
+    commands:
+      - "lp user %player% group set rankid"
+    requirements:
+      money: 1000
+      xp-level: 10
+      playtime: 1hr               # Human-readable duration format (see Requirements Guide)
+      mob-kills: 50
+      block-breaks: 500
+      permission: "some.required.node"
+      statistic-id: "FISH_CAUGHT"
+      statistic-value: 10
+      quests:
+        - "quest_id"
+      worlds:
+        - "world"
+      items:
+        DIAMOND: 5</code></pre>
+<h4 id="language-files-langenyml-langfilyml-langidyml-langesyml">Language files (<code>lang/en.yml</code>, <code>lang/fil.yml</code>, <code>lang/id.yml</code>, <code>lang/es.yml</code>)</h4>
+<p>Located in <code>plugins/RankForge/lang/</code>. Each file contains:</p>
+<ul><li><code>prefix:</code> — the <code>[RankForge]</code> prefix shown before messages</li><li><code>messages:</code> — every translatable message string</li></ul>
+<p>To add a language, copy <code>en.yml</code> to a new file (e.g., <code>de.yml</code>), translate the <code>messages</code> block, and run <code>/rank reload</code>. Players switch languages with <code>/rank lang set de</code>.</p>
+<h4 id="guiyml"><code>gui.yml</code></h4>
+<p>Controls all GUI titles, border materials, slot positions, icons, and themes. Every GUI in RankForge is configurable here without touching any Java code. Apply changes with <code>/rank reload</code>.</p>
+<h4 id="yaml-storage">YAML storage</h4>
+<p>Default. Player data is stored in <code>plugins/RankForge/data/playerdata.yml</code> and synced every <code>sync.interval-ticks</code> (default: 200 ticks = 10 seconds). A final flush always runs on clean shutdown.</p>
+<h4 id="mysql-storage">MySQL storage</h4>
+<pre class="docs-code"><code class="language-yaml">storage:
+  type: mysql
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "rankforge"
+    username: "rankforge_user"
+    password: "your_password"
+    pool-size: 10</code></pre>
+<p>Tables are created automatically. HikariCP handles connection pooling. If the connection fails at startup, RankForge falls back to YAML automatically.</p>
+<hr>
+<h3 id="rank-creation-guide">🏅 Rank Creation Guide</h3>
+<h4 id="creating-a-rank-1">Creating a rank</h4>
+<p>Add a new key under <code>ranks:</code> in <code>ranks.yml</code>:</p>
+<pre class="docs-code"><code class="language-yaml">ranks:
+  Builder:
+    display-name: "&amp;e[Builder]"
+    next-rank: "Veteran"
+    slot: 13
+    material: BRICKS
+    lore:
+      - "&amp;7A creative builder."
+    chat-prefix: "&amp;e[Builder]"</code></pre>
+<p>Reload with <code>/rank reload</code>. You can also create ranks in-game with <code>/rank create &lt;id&gt;</code>.</p>
+<h4 id="linking-rank-chains">Linking rank chains</h4>
+<p>Each rank points to the next via <code>next-rank</code>. Leave it empty for the final rank:</p>
+<pre class="docs-code"><code>Guest → Member → Veteran → Elite → (empty, final rank)</code></pre>
+<h4 id="configuring-rewards">Configuring rewards</h4>
+<pre class="docs-code"><code class="language-yaml">ranks:
+  Member:
+    permissions:
+      - "essentials.sethome.multiple.2"   # Applied when player holds this rank
+    commands:
+      - "lp user %player% group set member"   # Runs on rankup
+      - "eco take %player% 1000"</code></pre>
+<h4 id="configuring-permissions">Configuring permissions</h4>
+<ul><li><strong><code>permissions:</code></strong> — nodes granted while the player holds this rank (managed by LuckPerms or Bukkit attachment)</li><li><strong><code>commands:</code></strong> — console commands executed at the moment of rankup (<code>%player%</code> is replaced with the player's name)</li></ul>
+<h4 id="configuring-requirements">Configuring requirements</h4>
+<p>See the <a href="guides.html#requirements-guide">Requirements Guide</a> below for all supported types and the new playtime format.</p>
+<hr>
+<h3 id="requirements-guide">📋 Requirements Guide</h3>
+<p>All requirements are defined inside a <code>requirements:</code> block within each rank entry.</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Key</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>money</code></td><td>Double</td><td>Vault balance required. <code>0</code> = no requirement.</td></tr><tr><td><code>xp-level</code></td><td>Integer</td><td>Vanilla Minecraft XP level.</td></tr><tr><td><code>permission</code></td><td>String</td><td>A single permission node the player must have.</td></tr><tr><td><code>playtime</code></td><td>String</td><td>Real wall-clock playtime (see format below).</td></tr><tr><td><code>mob-kills</code></td><td>Integer</td><td>Total mob kills via <code>MOB_KILLS</code> statistic.</td></tr><tr><td><code>block-breaks</code></td><td>Integer</td><td>Block breaks tracked by RankForge's counter.</td></tr><tr><td><code>statistic-id</code></td><td>String</td><td>Any untyped Bukkit <code>Statistic</code> enum name.</td></tr><tr><td><code>statistic-value</code></td><td>Integer</td><td>Required value for <code>statistic-id</code>.</td></tr><tr><td><code>quests</code></td><td>List\&lt;String\&gt;</td><td>Quest IDs checked as <code>rankforge.quest.completed.&lt;id&gt;</code>.</td></tr><tr><td><code>worlds</code></td><td>List\&lt;String\&gt;</td><td>Player must be in one of these world names.</td></tr><tr><td><code>items</code></td><td>Map</td><td><code>MATERIAL_NAME: amount</code> pairs. Items must be in inventory.</td></tr></tbody></table></div>
+<h4 id="playtime-requirement-format">Playtime Requirement Format</h4>
+<p>The <code>playtime</code> key uses a single human-readable string. <strong>This is the recommended format.</strong></p>
+<p><strong>Supported units:</strong></p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Unit</th><th>Meaning</th></tr></thead><tbody><tr><td><code>d</code></td><td>Days (1d = 1440 minutes)</td></tr><tr><td><code>hr</code></td><td>Hours (1hr = 60 minutes)</td></tr><tr><td><code>m</code></td><td>Minutes</td></tr><tr><td><code>s</code></td><td>Seconds (truncated to whole minutes; &lt; 60s = 0)</td></tr></tbody></table></div>
+<p>Units are <strong>case-insensitive</strong> (<code>D</code>, <code>HR</code>, <code>M</code>, <code>S</code> all work). Extra whitespace is ignored. Any combination of units is accepted.</p>
+<p><strong>Examples:</strong></p>
+<pre class="docs-code"><code class="language-yaml">requirements:
+  playtime: 30m           # 30 minutes
+
+requirements:
+  playtime: 2hr           # 2 hours (120 minutes)
+
+requirements:
+  playtime: 7d            # 7 days (10,080 minutes)
+
+requirements:
+  playtime: 1d 12hr       # 1 day and 12 hours (2,160 minutes)
+
+requirements:
+  playtime: 5d 5hr 5m 5s  # 5 days, 5 hours, 5 minutes (seconds truncated)
+
+requirements:
+  playtime: 45s           # 45 seconds → 0 whole minutes (no requirement in effect)</code></pre>
+<p><strong>Backward compatibility:</strong></p>
+<p>Existing configurations using <code>playtime</code> continue to work without any changes:</p>
+<pre class="docs-code"><code class="language-yaml">requirements:
+  playtime: 60    # Still fully supported — equals "1hr"</code></pre>
+<p>The loader checks for <code>playtime</code> first; if absent, it falls back to <code>playtime</code>. No edits to existing <code>ranks.yml</code> files are required.</p>
+<p><strong>Full example rank using the duration format:</strong></p>
+<pre class="docs-code"><code class="language-yaml">ranks:
+  Veteran:
+    display-name: "&amp;2[Veteran]"
+    next-rank: "Elite"
+    slot: 15
+    material: EMERALD
+    chat-prefix: "&amp;2[Veteran]"
+    commands:
+      - "lp user %player% group set veteran"
+    requirements:
+      money: 10000
+      xp-level: 30
+      playtime: 10hr
+      mob-kills: 100
+      block-breaks: 5000
+      items:
+        DIAMOND: 10</code></pre>
+<hr>
+<h3 id="commands-guide">⌨️ Commands Guide</h3>
+<h4 id="player-commands-1">Player Commands</h4>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Command</th><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td><code>/rank</code></td><td><code>rankforge.rank.use</code></td><td>Open the animated rank tree GUI</td></tr><tr><td><code>/rank up</code></td><td><code>rankforge.rank.up</code></td><td>Attempt to rank up to the next rank</td></tr><tr><td><code>/rank progress</code></td><td><code>rankforge.rank.progress</code></td><td>Show a progress bar and requirement breakdown</td></tr><tr><td><code>/rank next</code></td><td><code>rankforge.rank.next</code></td><td>Show your next rank's display name</td></tr><tr><td><code>/rank current</code></td><td><code>rankforge.rank.current</code></td><td>Show your current rank</td></tr><tr><td><code>/rank requirements</code></td><td><code>rankforge.rank.requirements</code></td><td>List unmet requirements for the next rank</td></tr><tr><td><code>/rank history</code></td><td><code>rankforge.rank.history</code></td><td>View your last 10 rank changes</td></tr><tr><td><code>/rank xp</code></td><td><code>rankforge.rank.use</code></td><td>View your custom RankForge XP</td></tr><tr><td><code>/rank lang set </code>`</td><td><code>rankforge.rank.lang</code></td><td>Set your preferred language</td></tr><tr><td><code>/rank lang list</code></td><td><code>rankforge.rank.lang</code></td><td>List all available languages</td></tr><tr><td><code>/rank lang reset</code></td><td><code>rankforge.rank.lang</code></td><td>Reset to the server default language</td></tr><tr><td><code>/rank version</code></td><td><code>rankforge.rank.system.version</code></td><td>Show plugin and system information</td></tr><tr><td><code>/rank help</code></td><td><em>(none)</em></td><td>Show the help screen</td></tr></tbody></table></div>
+<h4 id="admin-commands-2">Admin Commands</h4>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Command</th><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td><code>/rank editor</code></td><td><code>rankforge.rank.editor</code></td><td>Open the admin rank editor GUI</td></tr><tr><td><code>/rank editor &lt;rankId&gt;</code></td><td><code>rankforge.rank.editor</code></td><td>Open the editor for a specific rank</td></tr><tr><td><code>/rank editor drag</code></td><td><code>rankforge.rank.editor.drag</code></td><td>Open the drag-and-drop slot editor</td></tr><tr><td><code>/rank create &lt;id&gt;</code></td><td><code>rankforge.rank.create</code></td><td>Create a new rank with a specific ID</td></tr><tr><td><code>/rank delete &lt;id&gt;</code></td><td><code>rankforge.rank.delete</code></td><td>Delete a rank (prompts for confirmation)</td></tr><tr><td><code>/rank set &lt;player&gt; &lt;rank&gt;</code></td><td><code>rankforge.rank.set</code></td><td>Set a player's rank (online or offline)</td></tr><tr><td><code>/rank force &lt;player&gt; &lt;rank&gt;</code></td><td><code>rankforge.rank.force</code></td><td>Force-set a rank bypassing all checks</td></tr><tr><td><code>/rank bypassreq &lt;player&gt; &lt;requirement&gt;</code></td><td><code>rankforge.rank.bypassreq</code></td><td>Waive a single requirement for a player</td></tr><tr><td><code>/rank reset &lt;player&gt;</code></td><td><code>rankforge.rank.reset</code></td><td>Reset a player to the default rank</td></tr><tr><td><code>/rank reload</code></td><td><code>rankforge.rank.reload</code></td><td>Hot-reload all configuration files</td></tr><tr><td><code>/rank playerlist</code></td><td><code>rankforge.rank.playerlist</code></td><td>Browse all player rank data in a GUI</td></tr><tr><td><code>/rank xp set &lt;player&gt; &lt;amount&gt;</code></td><td><code>rankforge.rank.xp.set</code></td><td>Set a player's custom XP</td></tr><tr><td><code>/rank xp add &lt;player&gt; &lt;amount&gt;</code></td><td><code>rankforge.rank.xp.add</code></td><td>Add custom XP to a player</td></tr><tr><td><code>/rank security</code></td><td><code>rankforge.rank.security</code></td><td>View the admin rollback audit log</td></tr><tr><td><code>/rank history &lt;player&gt;</code></td><td><code>rankforge.rank.admin</code></td><td>View another player's rank history</td></tr></tbody></table></div>
+<hr>
+<h3 id="permissions-guide">🔑 Permissions Guide</h3>
+<h4 id="player-permissions-1">Player Permissions</h4>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Permission</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>rankforge.use.*</code></td><td><code>true</code></td><td>Grants all player permissions (wildcard)</td></tr><tr><td><code>rankforge.use</code></td><td><code>true</code></td><td>Open the rank GUI (<code>/rank</code>)</td></tr><tr><td><code>rankforge.use.up</code></td><td><code>true</code></td><td>Rank up (<code>/rank up</code>)</td></tr><tr><td><code>rankforge.use.current</code></td><td><code>true</code></td><td>View current rank (<code>/rank current</code>)</td></tr><tr><td><code>rankforge.use.next</code></td><td><code>true</code></td><td>View next rank info (<code>/rank next</code>)</td></tr><tr><td><code>rankforge.use.progress</code></td><td><code>true</code></td><td>View rank progress bar (<code>/rank progress</code>)</td></tr><tr><td><code>rankforge.use.requirements</code></td><td><code>true</code></td><td>View rank requirements (<code>/rank requirements</code>)</td></tr><tr><td><code>rankforge.use.history</code></td><td><code>true</code></td><td>View rank history (<code>/rank history</code>)</td></tr><tr><td><code>rankforge.use.help</code></td><td><code>true</code></td><td>View command help (<code>/rank help</code>)</td></tr><tr><td><code>rankforge.use.lang</code></td><td><code>true</code></td><td>Change language (<code>/rank lang</code>)</td></tr><tr><td><code>rankforge.use.version</code></td><td><code>true</code></td><td>View plugin version info (<code>/rank version</code>)</td></tr><tr><td><code>rankforge.use.xp</code></td><td><code>true</code></td><td>View personal XP info (<code>/rank xp</code>)</td></tr></tbody></table></div>
+<h4 id="administrator-permissions-1">Administrator Permissions</h4>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Permission</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>rankforge.admin.*</code></td><td><code>op</code></td><td>Grants all admin permissions (wildcard)</td></tr><tr><td><code>rankforge.admin.reload</code></td><td><code>op</code></td><td>Full plugin reload (<code>/rank reload</code>)</td></tr><tr><td><code>rankforge.admin.editor</code></td><td><code>op</code></td><td>Open the admin rank editor (<code>/rank editor</code>)</td></tr><tr><td><code>rankforge.admin.playerlist</code></td><td><code>op</code></td><td>View and edit all player data (<code>/rank playerlist</code>)</td></tr><tr><td><code>rankforge.admin.create</code></td><td><code>op</code></td><td>Create a new rank (<code>/rank create</code>)</td></tr><tr><td><code>rankforge.admin.delete</code></td><td><code>op</code></td><td>Delete a rank (<code>/rank delete</code>)</td></tr><tr><td><code>rankforge.admin.set</code></td><td><code>op</code></td><td>Set a player's rank (<code>/rank set</code>)</td></tr><tr><td><code>rankforge.admin.force</code></td><td><code>op</code></td><td>Force-set a rank bypassing requirements (<code>/rank force</code>)</td></tr><tr><td><code>rankforge.admin.reset</code></td><td><code>op</code></td><td>Reset a player's rank (<code>/rank reset</code>)</td></tr><tr><td><code>rankforge.admin.bypassreq</code></td><td><code>op</code></td><td>Instantly complete a requirement for a player (<code>/rank bypassreq</code>)</td></tr><tr><td><code>rankforge.admin.stats</code></td><td><code>op</code></td><td>View system statistics (<code>/rank stats</code>)</td></tr><tr><td><code>rankforge.admin.debug</code></td><td><code>op</code></td><td>View rank debug info (<code>/rank debug</code>)</td></tr><tr><td><code>rankforge.admin.security</code></td><td><code>op</code></td><td>View anti-bypass status (<code>/rank security</code>)</td></tr><tr><td><code>rankforge.admin.sound</code></td><td><code>op</code></td><td>Manage sound settings (<code>/rank sound</code>)</td></tr><tr><td><code>rankforge.admin.xp</code></td><td><code>op</code></td><td>Set or add XP for other players (`/rank xp set\</td><td>add`)</td></tr></tbody></table></div>
+<h4 id="wildcard-permissions-1">Wildcard Permissions</h4>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Permission</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>rankforge.*</code></td><td><code>op</code></td><td>Grants all RankForge permissions</td></tr><tr><td><code>rankforge.use.*</code></td><td><code>true</code></td><td>Grants all player command permissions</td></tr><tr><td><code>rankforge.admin.*</code></td><td><code>op</code></td><td>Grants all administrator command permissions</td></tr></tbody></table></div>
+<h4 id="quest-permission">Quest Permission</h4>
+<p>| <code>rankforge.quest.completed.&lt;id&gt;</code> | Marks a quest as complete for requirement checks |</p>
+<hr>
+<h3 id="placeholderapi-guide">📊 PlaceholderAPI Guide</h3>
+<p>With PlaceholderAPI installed, all <code>%rankforge_*%</code> placeholders are available in any PAPI-compatible plugin (scoreboards, chat formatters, holograms, tab lists, etc.).</p>
+<div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Placeholder</th><th>Example Output</th><th>Description</th></tr></thead><tbody><tr><td><code>%rankforge_rank%</code></td><td><code>Veteran</code></td><td>Current rank ID</td></tr><tr><td><code>%rankforge_rank_name%</code></td><td><code>&amp;2[Veteran]</code></td><td>Current rank display name</td></tr><tr><td><code>%rankforge_rank_display%</code></td><td><code>&amp;2[Veteran]</code></td><td>Alias for <code>rank_name</code></td></tr><tr><td><code>%rankforge_rank_prefix%</code></td><td><code>&amp;2[Veteran]</code></td><td>Current rank's <code>chat-prefix</code></td></tr><tr><td><code>%rankforge_rank_position%</code></td><td><code>3</code></td><td>Position in the rank chain (1-based)</td></tr><tr><td><code>%rankforge_is_max_rank%</code></td><td><code>false</code></td><td><code>true</code> if player is at the final rank</td></tr><tr><td><code>%rankforge_next_rank%</code></td><td><code>Elite</code></td><td>Next rank ID, or <code>MAX</code></td></tr><tr><td><code>%rankforge_next_cost%</code></td><td><code>$100,000</code></td><td>Next rank's money requirement</td></tr><tr><td><code>%rankforge_cost%</code></td><td><code>$10,000</code></td><td>Current rank's money requirement</td></tr><tr><td><code>%rankforge_progress%</code></td><td><code>62.5</code></td><td>Overall requirement progress (decimal)</td></tr><tr><td><code>%rankforge_progress_percent%</code></td><td><code>62.5%</code></td><td>Same with <code>%</code> appended</td></tr><tr><td><code>%rankforge_progress_bar%</code></td><td><code>██████░░░░</code></td><td>Visual ASCII progress bar</td></tr><tr><td><code>%rankforge_required_progress%</code></td><td><code>$100,000 Lv75</code></td><td>All requirements for the next rank</td></tr><tr><td><code>%rankforge_remaining_progress%</code></td><td><code>$37,500 Lv12</code></td><td>What remains unmet</td></tr><tr><td><code>%rankforge_money%</code></td><td><code>$62,500</code></td><td>Player's current Vault balance</td></tr><tr><td><code>%rankforge_has_money%</code></td><td><code>false</code></td><td><code>true</code> if player can afford the next rank</td></tr><tr><td><code>%rankforge_missing_money%</code></td><td><code>$37,500</code></td><td>Money still needed</td></tr><tr><td><code>%rankforge_requirements_status%</code></td><td><code>§c✘ Requirements Unmet</code></td><td>Met / unmet status label</td></tr><tr><td><code>%rankforge_requirements_detail%</code></td><td><em>(multiline)</em></td><td>Full requirement breakdown</td></tr><tr><td><code>%rankforge_xp_level%</code></td><td><code>30</code></td><td>Player's current Minecraft XP level</td></tr><tr><td><code>%rankforge_xp_progress%</code></td><td><code>100%</code></td><td>Fraction to next XP level</td></tr><tr><td><code>%rankforge_player%</code></td><td><code>Steve</code></td><td>Player's display name (Bedrock-safe)</td></tr><tr><td><code>%rankforge_uuid%</code></td><td><code>xxxxxxxx-...</code></td><td>Player's UUID</td></tr><tr><td><code>%rankforge_lang%</code></td><td><code>en</code></td><td>Player's active language code</td></tr><tr><td><code>%rankforge_version%</code></td><td><code>3.7</code></td><td>Plugin version</td></tr></tbody></table></div>
+<hr>
+<h3 id="faq-troubleshooting">❓ FAQ / Troubleshooting</h3>
+<p><strong>Rank not updating after <code>/rank up</code></strong> Run <code>/rank progress</code> to see which requirements are unmet. Confirm <code>next-rank</code> is set correctly on the current rank.</p>
+<p><strong>PlaceholderAPI not working</strong> Ensure PlaceholderAPI is installed and loaded before RankForge. Run <code>/papi list</code> to confirm <code>rankforge</code> is registered. Use <code>/rank reload</code> after installing PAPI.</p>
+<p><strong>Vault not detected</strong> Vault must be installed <em>and</em> an economy provider (e.g., EssentialsX) must also be present. Check startup log for <code>[SoftDep] Vault=✓</code>.</p>
+<p><strong>LuckPerms integration not applying permissions</strong> LuckPerms must load before RankForge. Verify with <code>/rank version</code> that the plugin loaded successfully. Check that permission nodes in <code>ranks.yml</code> have no spaces or typos.</p>
+<p><strong>MySQL connection problems</strong> Verify credentials in <code>config.yml</code>. Ensure the database user has <code>CREATE</code>, <code>ALTER</code>, and <code>INSERT</code> privileges. Check console for <code>[DB] Failed to create MySQL tables</code> and the specific SQL error. RankForge automatically falls back to YAML if MySQL is unreachable.</p>
+<p><strong>Playtime requirement not progressing</strong> Check that <code>PlaytimeTracker</code> initialized on startup (look for errors in the console). Relog — the <code>PlayerJoinEvent</code> re-registers your session start. Confirm the rank's <code>playtime</code> value is greater than zero. Use <code>/rank requirements</code> to see the playtime line.</p>
+<p><strong>Old <code>playtime</code> config stopped working</strong> It has not stopped working. The key is fully supported. Add <code>playtime: 1hr</code> to new ranks going forward; existing <code>playtime</code> entries require no changes.</p>
+<p><strong>Invalid playtime format error</strong> Ensure the value uses only the supported units (<code>d</code>, <code>hr</code>, <code>m</code>, <code>s</code>) with whole numbers and no special characters. Valid: <code>1d 12hr 30m</code>. Invalid: <code>1.5d</code>, <code>2hours</code>, <code>90</code>.</p>
+<p><strong>Configuration mistakes</strong> Use a YAML validator (e.g., <a href="https://yaml-online-parser.appspot.com/" target="_blank" rel="noreferrer">yaml-online-parser.appspot.com</a>) to check <code>ranks.yml</code> for syntax errors. All invalid ranks are logged and skipped — look for <code>[YamlLoader] Skipped rank</code> warnings in the console.</p>
+<hr>
+<h3 id="best-practices-1">💡 Best Practices</h3>
+<h4 id="organizing-rank-chains">Organizing rank chains</h4>
+<ul><li>Keep rank IDs simple and consistent (<code>Guest</code>, <code>Member</code>, <code>Veteran</code>) — they are stored in player data.</li><li>Always set <code>next-rank</code> for every non-final rank to avoid silent dead-ends.</li><li>Use the <code>slot</code> field to arrange ranks visually in the GUI from left to right.</li></ul>
+<h4 id="optimizing-performance">Optimizing performance</h4>
+<ul><li>Use YAML storage for single servers; MySQL for networks with many concurrent players.</li><li>Keep <code>sync.interval-ticks</code> at <code>200</code> (10 seconds) or higher to reduce disk I/O.</li><li>Disable cosmetics you don't use (<code>particles</code>, <code>bossbar</code>) to reduce per-player overhead on busy servers.</li><li>The TPS-aware performance system automatically suppresses heavy effects when the server is under load.</li></ul>
+<h4 id="creating-balanced-progression">Creating balanced progression</h4>
+<ul><li>Start playtime requirements low (30m–1hr for the first rank) and increase gradually.</li><li>Combine <code>playtime</code> with activity-based requirements (<code>block-breaks</code>, <code>mob-kills</code>) so idle AFK players don't auto-rank.</li><li>Test all requirements on yourself with <code>/rank set &lt;yourself&gt; &lt;rank&gt;</code> and <code>/rank progress</code> before opening to players.</li></ul>
+<h4 id="maintaining-configuration-files">Maintaining configuration files</h4>
+<ul><li>Always use <code>/rank reload</code> — never <code>/reload</code>.</li><li>Back up <code>ranks.yml</code> and <code>playerdata.yml</code> (or your MySQL database) before making major changes.</li><li>When renaming a rank ID, update <code>default-rank</code> and all <code>next-rank</code> references, then use <code>/rank reload</code>. Players with the old ID are automatically repaired to <code>default-rank</code>.</li><li>Use the in-game admin editor (<code>/rank editor</code>) for safe edits that automatically validate and save the file.</li></ul>
+<hr>
+<div align="center">
+<p><strong>Made with ❤️ by <a href="https://github.com/JoshuaOP" target="_blank" rel="noreferrer">JoshuaOP</a></strong></p>
+<p>⭐ If RankForge helps your server, please <strong>star the repository</strong> — it helps others find the project!</p>
+<p><a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/github/stars/JoshuaOP/RankForge?style=social" alt="GitHub Stars"></a> <a href="https://github.com/JoshuaOP/RankForge/fork" target="_blank" rel="noreferrer"><img class="docs-badge" src="https://img.shields.io/github/forks/JoshuaOP/RankForge?style=social" alt="GitHub Forks"></a></p>
+</div></section></div>
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <span>RankForge documentation · source: README.md</span>
+                    <div class="social-links">
+                        <a href="https://github.com/JoshuaOP/RankForge" target="_blank" rel="noreferrer" aria-label="RankForge on GitHub"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="docs.js"></script>
+</body>
+</html>
