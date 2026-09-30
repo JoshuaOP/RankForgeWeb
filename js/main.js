@@ -3,28 +3,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.getElementById("navLinks");
 
     if (hamburger && navLinks) {
-        hamburger.addEventListener("click", () => {
-            const isOpen = navLinks.style.display === "flex";
+        const icon = hamburger.querySelector("i");
+
+        // Toggle mobile menu and icon state
+        hamburger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
             
-            if (isOpen) {
-                navLinks.style.display = "none";
-            } else {
-                navLinks.style.display = "flex";
-                navLinks.style.flexDirection = "column";
-                navLinks.style.position = "absolute";
-                navLinks.style.top = "70px";
-                navLinks.style.left = "0";
-                navLinks.style.width = "100%";
-                navLinks.style.background = "var(--card-bg)";
-                navLinks.style.padding = "1.5rem";
-                navLinks.style.borderBottom = "1px solid var(--border-color)";
+            if (icon) {
+                icon.classList.toggle("fa-bars");
+                icon.classList.toggle("fa-xmark");
             }
         });
 
-        // Automatically clear inline styles if the screen is resized back to desktop view
+        // Close menu when clicking anywhere outside the navigation
+        document.addEventListener("click", (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove("active");
+                if (icon) {
+                    icon.classList.add("fa-bars");
+                    icon.classList.remove("fa-xmark");
+                }
+            }
+        });
+
+        // Automatically reset menu and icon states if resized back to desktop view
         window.addEventListener("resize", () => {
             if (window.innerWidth > 768) {
-                navLinks.removeAttribute("style");
+                navLinks.classList.remove("active");
+                if (icon) {
+                    icon.classList.add("fa-bars");
+                    icon.classList.remove("fa-xmark");
+                }
             }
         });
     }

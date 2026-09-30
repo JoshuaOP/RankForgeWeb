@@ -46,17 +46,41 @@
 <p>RankForge includes five distinct GUIs.</p>
 <h3 id="animated-rank-tree-gui-rank">Animated Rank Tree GUI (<code>/rank</code>)</h3>
 <p>The primary player-facing GUI. Opens when a player runs <code>/rank</code> (or clicks with no arguments). Displays all ranks in the chain, with the player's current position highlighted. Icons use the rank's configured <code>material</code>, <code>display-name</code>, and <code>lore</code>. The GUI is animated for visual appeal.</p>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/artg.png" alt="Animated Rank Tree GUI" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the animated rank tree progression GUI.</p>
+</div>
 <h3 id="admin-rank-editor-gui-rank-editor">Admin Rank Editor GUI (<code>/rank editor</code>)</h3>
 <p>Lets admins browse all ranks and click into the detail editor for any rank. Changes made in the GUI are auto-saved to <code>ranks.yml</code> via a debounced async write (saves fire at most once per second even during rapid edits).</p>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/ae.png" alt="Admin Rank Editor GUI" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the admin rank editor GUI.</p>
+</div>
 <h3 id="rank-detail-editor-gui-rank-editor-rankid">Rank Detail Editor GUI (<code>/rank editor &lt;rankId&gt;</code>)</h3>
 <p>A per-rank editor that lets you modify:</p>
 <ul><li>Display name</li><li>Next rank link</li><li>Material / icon</li><li>Required money, XP, playtime, mob kills, block breaks</li><li>And more — via in-game chat prompts</li></ul>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/ae2.png" alt="Rank Detail Editor GUI" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the rank detail editor GUI.</p>
+</div>
 <h3 id="drag-and-drop-slot-editor-rank-editor-drag">Drag-and-Drop Slot Editor (<code>/rank editor drag</code>)</h3>
 <p>A visual editor for rearranging rank icons in the GUI. Drag an icon from one slot to another to update its <code>slot</code> value without touching <code>ranks.yml</code>. Changes persist immediately.</p>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/drag.png" alt="Drag-and-Drop Slot Editor" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the drag-and-drop slot editor GUI.</p>
+</div>
 <h3 id="player-list-gui-rank-playerlist">Player List GUI (<code>/rank playerlist</code>)</h3>
 <p>Lists all players whose data is in the cache, with their rank shown on the icon. Clicking a player opens the <code>PlayerDataEditorGUI</code> where an admin can view and change that player's rank data directly.</p>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/playerlist.png" alt="Player List GUI" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the player list GUI.</p>
+</div>
 <h3 id="player-data-editor-gui-playerdataeditorgui">Player Data Editor GUI (<code>PlayerDataEditorGUI</code>)</h3>
 <p>A 54-slot editor opened by clicking any player in the Player List GUI. Provides the following buttons:</p>
+<div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+    <img src="../assets/img/playerlist.png" alt="Player Data Editor GUI" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+    <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview of the player data editor GUI.</p>
+</div>
 <div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Slot</th><th>Button</th><th>Action</th></tr></thead><tbody><tr><td>4</td><td>Player Head</td><td>Summary (UUID, rank, XP, balance, status)</td></tr><tr><td>10</td><td>Rank</td><td>Click to change the player's rank (chat input)</td></tr><tr><td>12</td><td>Experience</td><td>Click to set the player's experience (chat input)</td></tr><tr><td>14</td><td>Balance</td><td>Click to set the player's economy balance (chat input)</td></tr><tr><td>16</td><td><strong>Rank History</strong></td><td>Displays the selected player's last 10 rank changes directly in the administrator's chat</td></tr><tr><td>45</td><td>← Back</td><td>Return to the Player List GUI</td></tr><tr><td>49</td><td>Reset</td><td>Reset the player's data to server defaults</td></tr><tr><td>53</td><td>Close</td><td>Close the GUI</td></tr></tbody></table></div>
 <div class="docs-callout note"><p><strong>Reset</strong> also clears any active <code>/rank bypassreq</code> waivers for that player, alongside their rank, XP, and balance — so a reset always returns a player to a fully clean, server-default state.</p></div>
 <h4 id="rank-history-button-slot-16">Rank History Button (Slot 16)</h4>

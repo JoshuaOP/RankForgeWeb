@@ -320,7 +320,7 @@
     background: rgba(88, 101, 242, 0.1);
 }
 
-/* Non-White Button Styles override */
+/* Button Styles */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -333,14 +333,14 @@
 }
 
 .btn-primary {
-    background-color: #36393f;
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: 1px solid var(--accent-color);
 }
 
 .btn-primary:hover {
-    background-color: #40444b;
-    border-color: var(--accent-color);
+    background-color: #4752c4;
+    border-color: #4752c4;
 }
 
 .btn-secondary {
