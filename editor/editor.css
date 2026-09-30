@@ -1,3 +1,48 @@
+/* Navbar & Links Animation Enhancements */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(24, 25, 28, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-links a {
+    position: relative;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease, left 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--text-main);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+    left: 0;
+}
+
 /* Editor Shell Layout */
 .editor-shell {
     display: grid;
@@ -215,11 +260,73 @@
     color: var(--text-main);
 }
 
-/* View Switcher Tabs */
+/* View Switcher Tabs (Legacy support) */
 .editor-view-tabs {
+    display: none;
+}
+
+/* Bottom Collapsible YAML Preview Panel */
+.yaml-preview-bottom-panel {
+    margin-top: 2.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.yaml-preview-header {
     display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.yaml-preview-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.yaml-preview-body {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: none;
+    animation: fadeInSlide 0.3s ease forwards;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.yaml-preview-body p {
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.yaml-preview-body pre {
+    background: #1e1f22;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    color: #a9b7c6;
+    font-family: 'Fira Code', Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    max-height: 450px;
+    line-height: 1.5;
+    margin: 0;
 }
 
 /* Editor Cards & Grids */
@@ -436,10 +543,6 @@
 
     .editor-toolbar-actions {
         justify-content: flex-start;
-    }
-
-    .editor-view-tabs {
-        flex-direction: column;
     }
 
     .editor-grid,
