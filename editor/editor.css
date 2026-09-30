@@ -215,6 +215,13 @@
     color: var(--text-main);
 }
 
+/* View Switcher Tabs */
+.editor-view-tabs {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
 /* Editor Cards & Grids */
 .editor-card {
     margin-bottom: 1.5rem;
@@ -429,6 +436,10 @@
 
     .editor-toolbar-actions {
         justify-content: flex-start;
+    }
+
+    .editor-view-tabs {
+        flex-direction: column;
     }
 
     .editor-grid,

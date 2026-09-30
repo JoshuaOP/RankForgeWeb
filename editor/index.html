@@ -58,8 +58,36 @@
             </div>
             <div class="editor-status" id="editorStatus" role="status" aria-live="polite"></div>
             <div class="editor-notice"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> This is a client-side editor. Drafts stay in this browser; use <strong>Export YAML</strong> to download a file for <code>plugins/RankForge/ranks.yml</code>, or <strong>Import YAML</strong> to load an existing configuration file. The source file is never changed automatically.</div>
-            <div class="editor-empty" id="editorEmpty" hidden>No rank selected.</div>
-            <form id="rankForm" autocomplete="off"></form>
+            
+            <!-- View Mode Switcher Tabs -->
+            <div class="editor-view-tabs" style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <button class="btn btn-primary" id="tabVisual" type="button"><i class="fa-solid fa-pen-to-square"></i> Visual Editor</button>
+                <button class="btn btn-secondary" id="tabYaml" type="button"><i class="fa-solid fa-code"></i> YAML Preview</button>
+            </div>
+
+            <!-- Visual Editor View -->
+            <div id="visualViewContent">
+                <div class="editor-empty" id="editorEmpty" hidden>No rank selected.</div>
+                <form id="rankForm" autocomplete="off"></form>
+            </div>
+
+            <!-- YAML Preview View -->
+            <div id="yamlViewContent" style="display: none;">
+                <div class="editor-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2>ranks.yml Live Preview</h2>
+                        <button class="btn btn-secondary" id="previewCopyBtn" type="button" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;"><i class="fa-regular fa-copy"></i> Copy YAML</button>
+                    </div>
+                    <p>Real-time YAML representation of your configuration ready for <code>plugins/RankForge/ranks.yml</code>.</p>
+                    <pre style="background: #1e1f22; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; color: #a9b7c6; font-family: 'Fira Code', Consolas, Monaco, monospace; font-size: 0.9rem; overflow-x: auto; max-height: 600px; line-height: 1.5;"><code id="yamlPreviewCode">default-rank: Guest
+ranks:
+  Guest:
+    display-name: "&7[Guest]"
+    weight: 0
+    requirements: []
+    rewards: []</code></pre>
+                </div>
+            </div>
         </main>
     </div>
 

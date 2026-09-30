@@ -145,6 +145,7 @@ const STORAGE_KEY = "rankforge-editor-draft";
 const clone = (value) => JSON.parse(JSON.stringify(value));
 let state = loadState();
 let selectedRank = Object.keys(state.ranks)[0];
+let activeView = "visual"; // "visual" or "yaml"
 
 const rankList = document.getElementById("rankList");
 const rankForm = document.getElementById("rankForm");
@@ -152,6 +153,14 @@ const emptyState = document.getElementById("editorEmpty");
 const status = document.getElementById("editorStatus");
 const defaultRankInput = document.getElementById("defaultRank");
 const importFile = document.getElementById("importFile");
+
+// View Switcher Elements
+const tabVisual = document.getElementById("tabVisual");
+const tabYaml = document.getElementById("tabYaml");
+const visualViewContent = document.getElementById("visualViewContent");
+const yamlViewContent = document.getElementById("yamlViewContent");
+const yamlPreviewCode = document.getElementById("yamlPreviewCode");
+const previewCopyBtn = document.getElementById("previewCopyBtn");
 
 function loadState() {
     try {
@@ -315,6 +324,28 @@ function updatePreview() {
     meta.textContent = `${current.material || "No material"} · slot ${current.slot ?? 0} · next: ${current["next-rank"] || "final rank"}`;
 }
 
+function updateYamlPreview() {
+    if (yamlPreviewCode) {
+        yamlPreviewCode.textContent = toYaml();
+    }
+}
+
+function switchView(view) {
+    activeView = view;
+    if (view === "visual") {
+        tabVisual.className = "btn btn-primary";
+        tabYaml.className = "btn btn-secondary";
+        visualViewContent.style.display = "block";
+        yamlViewContent.style.display = "none";
+    } else {
+        tabVisual.className = "btn btn-secondary";
+        tabYaml.className = "btn btn-primary";
+        visualViewContent.style.display = "none";
+        yamlViewContent.style.display = "block";
+        updateYamlPreview();
+    }
+}
+
 function inputValue(target) {
     if (target.type === "number") {
         return target.value === "" ? 0 : Number(target.value);
@@ -337,6 +368,9 @@ function handleFormInput(event) {
     if (target.dataset.map) {
         updateMapValue(target);
         setStatus("Unsaved changes");
+    }
+    if (activeView === "yaml") {
+        updateYamlPreview();
     }
 }
 
@@ -381,6 +415,9 @@ function handleFormAction(event) {
     }
     renderForm();
     setStatus("Unsaved changes");
+    if (activeView === "yaml") {
+        updateYamlPreview();
+    }
 }
 
 function yamlString(value) {
@@ -610,6 +647,9 @@ function addRank() {
     renderRankList();
     renderForm();
     setStatus("New rank added");
+    if (activeView === "yaml") {
+        updateYamlPreview();
+    }
 }
 
 function resetDraft() {
@@ -621,6 +661,9 @@ function resetDraft() {
     renderRankList();
     renderForm();
     setStatus("Draft reset", true);
+    if (activeView === "yaml") {
+        updateYamlPreview();
+    }
 }
 
 rankList.addEventListener("click", (event) => {
@@ -638,7 +681,20 @@ rankForm.addEventListener("click", handleFormAction);
 defaultRankInput.addEventListener("input", () => {
     state.defaultRank = defaultRankInput.value;
     setStatus("Unsaved changes");
+    if (activeView === "yaml") {
+        updateYamlPreview();
+    }
 });
+
+// View Toggle Listeners
+if (tabVisual && tabYaml) {
+    tabVisual.addEventListener("click", () => switchView("visual"));
+    tabYaml.addEventListener("click", () => switchView("yaml"));
+}
+
+if (previewCopyBtn) {
+    previewCopyBtn.addEventListener("click", copyYaml);
+}
 
 document.getElementById("addRank").addEventListener("click", addRank);
 document.getElementById("saveDraft").addEventListener("click", saveDraft);
@@ -668,6 +724,9 @@ if (importFile) {
                 renderRankList();
                 renderForm();
                 setStatus(`Successfully imported ${file.name}`, true);
+                if (activeView === "yaml") {
+                    updateYamlPreview();
+                }
             } catch (err) {
                 setStatus(`Failed to parse YAML file: ${err.message}`);
             }

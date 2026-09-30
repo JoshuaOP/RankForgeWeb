@@ -44,7 +44,6 @@
         </aside>
         <main class="docs-main">
             <section class="docs-hero">
-                <span class="badge">Official Guide</span>
                 <h1>Getting Started</h1>
                 <p>Explore the complete guide below for setting up and managing your RankForge server.</p>
                 <label class="docs-search" for="docsSearch">
@@ -131,7 +130,7 @@
                         <ul>
                             <li>🏅 Unlimited ranks defined in a single <code>ranks.yml</code></li>
                             <li>🔗 Linked-list rank chain: each rank points to the next via <code>next-rank</code></li>
-                            <li>🛡️️ Slot-based GUI positioning — each rank occupies a configurable inventory slot</li>
+                            <li>🛡 Slot-based GUI positioning — each rank occupies a configurable inventory slot</li>
                             <li>💾 Hot-reload without server restart (<code>/rank reload</code>)</li>
                             <li>🔧 In-game rank creation, editing, and deletion via chat prompts and GUI</li>
                         </ul>
@@ -139,11 +138,31 @@
                         <ul>
                             <li>💰 <strong>Money</strong> — Vault economy balance</li>
                             <li>⭐ <strong>XP Level</strong> — Vanilla Minecraft experience level</li>
-                            <li>⏱️ <strong>Playtime</strong> — Tracked via real wall-clock time (independent of server TPS)</li>
+                            <li>⏱ <strong>Playtime</strong> — Tracked via real wall-clock time (independent of server TPS)</li>
                             <li>⚔️ <strong>Mob Kills</strong> — Tracked via vanilla <code>MOB_KILLS</code> statistic</li>
                             <li>🪨 <strong>Block Breaks</strong> — Exact per-player counter via a dedicated event listener</li>
                         </ul>
                     </details>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="tablist-formatting">👥 Tablist &amp; Chat Formatting</h2>
+                    <p>RankForge natively manages and applies custom rank prefix formats across player lists and chat conversations seamlessly.</p>
+                    <div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+                        <img src="../assets/img/tablist.png" alt="Tablist and Chat Formatting" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+                        <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">Example showing rank prefix formatting inside the server tablist.</p>
+                    </div>
+                    <hr>
+                </section>
+
+                <section class="docs-section">
+                    <h2 id="rank-up-celebrations">🎉 Immersive Rank-Up Celebrations</h2>
+                    <p>Reward successful advancements with gorgeous custom titles, bossbar announcements, and broadcast messages.</p>
+                    <div class="docs-card" style="text-align: center; padding: 1.5rem; margin-top: 1rem;">
+                        <img src="../assets/img/rankup.png" alt="Rank Up Celebration Banner and Titles" style="max-width: 100%; height: auto; image-rendering: pixelated; border-radius: 8px; border: 1px solid var(--border-color, #3f4147);">
+                        <p style="color: var(--text-muted, #949ba4); font-size: 0.9rem; margin-top: 1rem;">In-game preview showcasing boss bar and title announcements when a player ranks up.</p>
+                    </div>
                     <hr>
                 </section>
 
